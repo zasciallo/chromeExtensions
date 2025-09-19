@@ -1,0 +1,388 @@
+<savedby-checkout-plus data-path={window.location.pathname} style="
+    width: 100%;
+">
+  <style id="extra-css"></style>
+  <style>
+    a.sb__non-covered-link.double-button {
+      color: rgb(145, 163, 149);
+      text-decoration: none;
+      opacity: unset;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 58px;
+      border: 2px solid rgb(145, 163, 149);
+      box-sizing: border-box;
+      border-radius: 10px;
+      font-family: var(--info-font-family, "Montserrat", "Roboto", "Helvetica", "Arial", sans-serif);
+      line-height: 1.5;
+    }
+
+    .sb__parent {
+      margin-bottom: 4px;
+      max-width: var(--container-max-width, 100%);
+    }
+
+    .hs-site-cart-popup-layout savedby-widget .sb__container,
+    #slidecarthq .sb__container,
+    #rebuy-cart .sb__container,
+    #rebuy-cart .sb__checkout-container {
+      max-width: 100%;
+    }
+
+    .sb__info-wrapper {
+      display: flex;
+      width: 100%;
+      line-height: 1;
+      margin: 16px 0;
+      font-family: var(--info-font-family, "Montserrat", "Roboto", "Helvetica", "Arial", sans-serif);
+      letter-spacing: 0.01em;
+      vertical-align: middle;
+    }
+
+    .sb__info-wrapper:has(+ slot) {
+      margin-bottom: 0;
+    }
+
+    .sb__info-container {
+      border-radius: var(--info-border-radius, 4px);
+      display: flex;
+      gap: 0 8px;
+      padding: 4px 8px;
+      justify-content: center;
+      min-height: 16px;
+      background-color: var(--info-bg-color, #f5f5f5);
+      color: var(--info-text-color, #000000);
+      width: 100%;
+      align-items: center;
+      mix-blend-mode: normal;
+      backdrop-filter: blur(10px);
+    }
+
+    /* INFO LOGO */
+
+    .sb__info-logo-container {
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    [data-variant=DETAILED] .sb__info-logo-container {
+      height: auto;
+    }
+
+    .sb__info-logo-container>img {
+      height: 100%;
+      aspect-ratio: 1;
+      max-width: 28px;
+    }
+
+    /* INFO CONTENT */
+    .sb__info-content {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      padding: 4px 0;
+      flex: auto;
+    }
+
+    /* INFO TEXT */
+
+    .sb__info-text-wrapper {
+      flex: 1;
+      display: flex;
+    }
+
+    .sb__info-text-container {
+      column-gap: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: var(--info-font-size, 0.8em);
+      align-items: center;
+    }
+
+    [data-variant=DETAILED] .sb__info-text-container {
+      width: 100%;
+    }
+
+    .sb__info-text-container [name="title"] {
+      font-size: var(--info-title-font-size, 16px);
+      font-weight: 400;
+      color: var(--info-title-color, inherit);
+    }
+
+    [data-variant=DETAILED] [name="title"] {
+      font-size: var(--info-title-font-size, 14px);
+    }
+
+    .sb__info-container [name="description"] {
+      font-weight: 100;
+      white-space: nowrap;
+      font-size: var(--info-desc-font-size, 1.1em);
+      color: var(--info-desc-color, inherit);
+    }
+
+    [data-variant=DETAILED] [name="description"] {
+      opacity: 0.8;
+      font-size: var(--info-desc-font-size, 14px);
+    }
+
+    .sb__info-text-container [name="fee"] {
+      font-weight: 100;
+      color: var(--info-fee-color, inherit);
+      font-size: var(--info-fee-font-size, 1.1em);
+      text-align: right;
+      flex: auto
+    }
+
+    [data-variant=SIMPLE] [name="fee"]::before {
+      content: "•";
+      margin: 0 4px;
+    }
+
+    [data-variant=DETAILED] [name="fee"] {
+      opacity: 0.8;
+    }
+
+    /* INFO HELP BUTTON */
+
+    .sb__info-help-button {
+      /* padding-left: 4px; */
+      /* background-color: red; */
+      height: 18px;
+      width: 18px;
+      max-height: 24px;
+      max-width: 24px;
+      cursor: pointer;
+      opacity: 0.5
+    }
+
+    [data-variant=DETAILED] .sb__info-help-button {
+      /* background-color: red;s */
+      height: 18px;
+      width: 18px;
+    }
+
+    .sb__info-help-button>svg {
+      fill: var(--info-help-color, #000000);
+    }
+
+    @media (max-width: 330px) {
+      .sb__info-container {
+        background-color: unset;
+      }
+
+      .sb__info-text-container {
+        font-size: 12px;
+      }
+    }
+
+    .sb__checkout-wrapper {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .sb__checkout-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      gap: 16px;
+    }
+
+    .sb__button-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .sb__button {
+      display: flex;
+      border-radius: var(--btn-border-radius, 5px);
+      height: var(--btn-height, 54px);
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      border-width: 0;
+      font-family: var(--info-font-family, "Montserrat", "Roboto", "Helvetica", "Arial", sans-serif);
+      white-space: nowrap;
+    }
+
+    .sb__checkout-button {
+      background-color: var(--btn-checkout-bg-color, #000000);
+      color: var(--btn-checkout-text-color, #ffffff);
+    }
+
+    .sb__checkout-button>svg {
+      fill: var(--btn-checkout-text-color, #ffffff);
+    }
+
+    .sb__button:hover {
+      filter: brightness(0.9);
+    }
+
+    /* TODO -- DOESNT WORK INSIDE SHADOW ROOT */
+    slot[name="checkoutButton"][disabled] {
+      filter: grayscale(0.9);
+      cursor: not-allowed;
+      opacity: 0.3;
+    }
+
+    .sb__cart-button {
+      background-color: var(--btn-cart-bg-color, #ffffff);
+      color: var(--btn-cart-text-color, #000000);
+    }
+
+    /* TODO -- LOADING */
+    .sb__loading-icon,
+    .sb__loading-icon div {
+      box-sizing: border-box;
+    }
+
+    .sb__loading-icon {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .sb__loading-icon div {
+      position: absolute;
+      top: 33.33333px;
+      width: 13.33333px;
+      height: 13.33333px;
+      border-radius: 50%;
+      background: currentColor;
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+
+    .sb__loading-icon div:nth-child(1) {
+      left: 8px;
+      animation: sb__loading-icon1 0.6s infinite;
+    }
+
+    .sb__loading-icon div:nth-child(2) {
+      left: 8px;
+      animation: sb__loading-icon2 0.6s infinite;
+    }
+
+    .sb__loading-icon div:nth-child(3) {
+      left: 32px;
+      animation: sb__loading-icon2 0.6s infinite;
+    }
+
+    .sb__loading-icon div:nth-child(4) {
+      left: 56px;
+      animation: sb__loading-icon3 0.6s infinite;
+    }
+
+    @keyframes sb__loading-icon1 {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes sb__loading-icon3 {
+      0% {
+        transform: scale(1);
+      }
+
+      100% {
+        transform: scale(0);
+      }
+    }
+
+    @keyframes sb__loading-icon2 {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(24px, 0);
+      }
+    }
+
+    .sb__continue-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .sb__non-covered-link {
+      color: var(--continue-text-color, #000000);
+      font-size: var(--continue-font-size, 13px);
+      text-decoration: var(--continue-text-decoration, underline);
+      text-align: center;
+      cursor: pointer;
+      width: auto;
+      opacity: 0.7;
+      font-weight: 300;
+      font-family: var(--info-font-family, "Montserrat", "Roboto", "Helvetica", "Arial", sans-serif);
+    }
+
+    div:has(>.sb__non-covered-link[disabled]) {
+      cursor: not-allowed;
+    }
+
+    .sb__non-covered-link[disabled] {
+      pointer-events: none;
+      filter: grayscale(0.9);
+    }
+
+    .sb__disclaimer {
+      color: var(--disclaimer-text-color, gray);
+      font-size: var(--disclaimer-font-size, 14px);
+      font-family: var(--info-font-family, "Montserrat", "Roboto", "Helvetica", "Arial", sans-serif);
+      text-decoration: var(--disclaimer-text-decoration, none);
+      font-style: var(--disclaimer-text-style, italic);
+      font-weight: var(--disclaimer-font-weight, 300);
+      line-height: 1.2;
+      white-space: break-spaces;
+    }
+  </style>
+  <div class="sb__parent">
+    <div data-variant="SIMPLE" class="sb__info-wrapper">
+      <div class="sb__info-container">
+        <div class="sb__info-logo-container"><img alt="Protection Logo"
+            src="https://cdn.savedby.io/logos/savedby/SavedByLogo-small.png"></div>
+        <div class="sb__info-text-wrapper">
+          <div class="sb__info-text-container"><span name="title">Checkout+</span>
+            <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+              <span name="description">Package Protection</span><span name="fee">${fee || "1.67"}</span>
+            </div>
+          </div>
+        </div>
+        <div class="sb__info-help-button"><svg xmlns="http://www.w3.org/2000/svg" height="100%" focusable="false"
+            aria-hidden="true" viewBox="0 0 24 24">
+            <path
+              d="M11 18h2v-2h-2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4">
+            </path>
+          </svg></div>
+      </div>
+    </div>
+    <div class="sb__checkoutBtn-container">
+      <checkout-button />
+    </div>
+    <div class="sb__continue-container"><a class="sb__non-covered-link">Continue without package protection</a>
+    </div>
+    <div class="sb__viewCart-container">
+      <view-cart-button />
+    </div>
+    <div class="sb__disclaimer">
+      <span>By clicking "Continue without package protection" you agree to our </span>
+    </div>
+</savedby-checkout-plus>

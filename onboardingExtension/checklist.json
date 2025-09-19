@@ -1,0 +1,121 @@
+{
+  "1": [
+    {
+      "id": 1,
+      "label": "Store should be set to development",
+      "bodyText": "Set to development to avoid any issues with live store",
+      "checked": false
+    },
+    {
+      "id": 2,
+      "label": "Correct fee tiers if needed",
+      "bodyText": "Double check onboarding notes about different fee tiers, and check if necessary to change",
+      "checked": false
+    },
+    {
+      "id": 3,
+      "label": "Set correct widget type and variant",
+      "bodyText": null,
+      "checked": false
+    },
+    {
+      "id": 4,
+      "label": "Check for any extra options to add in widget config",
+      "bodyText": "These can be items like opt in condition, or a render after/below",
+      "checked": false
+    },
+    {
+      "id": 5,
+      "label": "Correct store coordinates",
+      "checked": false
+    }
+  ],
+  "2": [
+    {
+      "id": 1,
+      "label": "Check that product is out of all collections",
+      "bodyText": null,
+      "checked": false
+    },
+    {
+      "id": 2,
+      "label": "Images in variants",
+      "bodyText": null,
+      "checked": false
+    },
+    {
+      "id": 3,
+      "label": "Set product to active",
+      "bodyText": null,
+      "checked": false
+    },
+    {
+      "id": 4,
+      "label": "!IMPORTANT! Check store and search for SavedBy",
+      "bodyText": "Check Shop All, Featured, Recommendations, and use search bar of store. If found on live site, set product to draft",
+      "checked": false
+    },
+    {
+      "id": 5,
+      "label": "Duplicate Theme has [SavedBy mm/dd/yyyy] format at end",
+      "bodyText": null,
+      "checked": false
+    }
+  ],
+  "3": [
+    {
+      "id": 1,
+      "label": "SavedBy Product hidden in cart",
+      "bodyText": "No SavedBy product on any cart pages, double check it does not show on changes.",
+      "checked": false
+    },
+    {
+      "id": 2,
+      "label": "Cart totals show without SavedBy",
+      "bodyText": "Subtotal and cart count are not including SavedBy.",
+      "checked": false
+    },
+    {
+      "id": 3,
+      "label": "Correct tier shows on change",
+      "bodyText": null,
+      "checked": false
+    },
+    {
+      "id": 4,
+      "label": "Product hidden in collections",
+      "bodyText": "Check recommendations, collections, and other possibilities of our product being shown.",
+      "checked": false
+    },
+    {
+      "id": 5,
+      "label": "Quantity change uses key",
+      "bodyText": null,
+      "checked": false
+    },
+    {
+      "id": 6,
+      "label": "Empty cart component is visible",
+      "bodyText": null,
+      "checked": false
+    },
+    {
+      "id": 7,
+      "label": "Check help icon popup",
+      "bodyText": "Ensure no styles are effecting our pop up.",
+      "checked": false
+    },
+    {
+      "id": 8,
+      "label": "Styles fit on store",
+      "bodyText": "Check all widths and ensure the widget does not break/look off on the store.",
+      "checked": false
+    },
+    {
+      "id": 9,
+      "label": "Test on major browsers",
+      "bodyText": "Check on safari, firefox, google, and mobile options.",
+      "checked": false
+    }
+  ]
+}

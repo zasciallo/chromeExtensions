@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Onboarding Extension",
+  "description": "Base Level Extension",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*",
+        "http://*/*",
+        "https://help.savedby.io/"
+      ],
+      "js": [
+        "index.js"
+      ],
+      "css": [
+        "styles.css"
+      ]
+    }
+  ],
+  "permissions": [
+    "storage"
+  ]
+}

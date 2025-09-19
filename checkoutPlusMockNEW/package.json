@@ -1,0 +1,19 @@
+{
+  "name": "checkout-plus-sidepanel-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension with sidepanel for Checkout+ package protection injection",
+  "main": "service-worker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chrome-extension",
+    "sidepanel",
+    "checkout",
+    "package-protection",
+    "shopify",
+    "ecommerce"
+  ],
+  "author": "SavedBy",
+  "license": "ISC"
+}

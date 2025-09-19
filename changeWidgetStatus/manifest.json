@@ -1,0 +1,20 @@
+{
+  "name": "Set EXW status",
+  "version": "1.0",
+  "manifest_version": 3,
+  "host_permissions": [
+    "*://*/*checkouts*"
+  ],
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": "images/SavedByLogo2.png"
+  }
+}
