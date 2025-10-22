@@ -1,133 +1,147 @@
 let currentTab = null;
+let currentDomain = null;
+let previousDomain = null;
 
-// Initialize the sidepanel
-function init() {
-	// Get current tab info
+// Check current tab and handle domain changes
+function checkCurrentTab() {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		if (tabs[0]) {
 			currentTab = tabs[0];
 			document.getElementById("currentUrl").textContent = tabs[0].url;
-			updatePageStatus();
 
-			// Reset settings for new page
-			resetSettingsForNewPage();
+			// Check for domain change and reset if needed
+			const url = new URL(currentTab.url);
+			const newDomain = url.hostname;
+
+			// Store previous domain
+			previousDomain = currentDomain;
+			currentDomain = newDomain;
+
+			// If domain changed, reset everything
+			if (previousDomain && previousDomain !== newDomain) {
+				console.log(`Store changed from ${previousDomain} to ${newDomain} - resetting state`);
+				resetForNewStore();
+			} else {
+				loadSettings();
+			}
 		}
 	});
+}
+
+// Initialize the sidepanel
+function init() {
+	// Check current tab
+	checkCurrentTab();
 
 	// Set up event listeners
 	document.getElementById("injectBtn").addEventListener("click", injectCheckout);
-	document.getElementById("removeBtn").addEventListener("click", removeProtection);
-	document.getElementById("enableDisclaimer").addEventListener("change", updateSettings);
-	document.getElementById("disclaimerText").addEventListener("input", updateSettings);
-	document.getElementById("enableDoubleButton").addEventListener("change", updateSettings);
-	document.getElementById("feeTier").addEventListener("change", updateSettings);
+	document.getElementById("resetBtn").addEventListener("click", resetAllSettings);
+	document.getElementById("enableDisclaimer").addEventListener("change", () => updateSettings());
+	document.getElementById("disclaimerText").addEventListener("input", () => updateSettings());
+	document.getElementById("enableDoubleButton").addEventListener("change", () => updateSettings());
+	document.getElementById("feeTier").addEventListener("change", () => updateSettings());
+
+	// Listen for tab changes
+	chrome.tabs.onActivated.addListener((activeInfo) => {
+		console.log("Tab activated:", activeInfo.tabId);
+		checkCurrentTab();
+	});
+
+	// Listen for tab updates (URL changes)
+	chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+		if (changeInfo.status === "complete" && tab.active) {
+			console.log("Tab updated:", tabId, tab.url);
+			checkCurrentTab();
+		}
+	});
 }
 
-// Reset settings when opening side panel on new page
-function resetSettingsForNewPage() {
-	console.log("Resetting settings for new page...");
+// Inject Checkout+ protection
+function injectCheckout() {
+	if (!currentTab) return;
 
-	// Reset to default values
+	// First, try to inject the content script manually
+	chrome.scripting.executeScript(
+		{
+			target: { tabId: currentTab.id },
+			files: ["content-script.js"],
+		},
+		() => {
+			if (chrome.runtime.lastError) {
+				console.error("Failed to inject content script:", chrome.runtime.lastError);
+				updateStatus("Error: Could not inject content script", "error");
+				return;
+			}
+
+			// Wait a moment for the script to load, then send message
+			setTimeout(() => {
+				chrome.tabs.sendMessage(currentTab.id, { action: "injectCheckout" }, function (response) {
+					console.log("Response:", response);
+					console.log("Last error:", chrome.runtime.lastError);
+					if (chrome.runtime.lastError) {
+						console.error("Error: Could not inject protection", chrome.runtime.lastError);
+						updateStatus("Error: Could not inject protection", "error");
+					} else if (response && response.success) {
+						updateStatus("Checkout+ protection injected successfully!", "success");
+					} else {
+						updateStatus("Injection completed with warnings", "warning");
+					}
+				});
+			}, 100);
+		}
+	);
+}
+
+// Reset for new store (domain change)
+function resetForNewStore() {
+	console.log("Resetting for new store:", currentDomain);
+
+	// Reset UI to defaults
 	document.getElementById("enableDisclaimer").checked = true;
 	document.getElementById("disclaimerText").value = "We highly suggest protecting your package with Checkout+ for lost, damaged, or stolen packages.";
 	document.getElementById("enableDoubleButton").checked = false;
 	document.getElementById("feeTier").value = "035";
 
-	// Clear any existing status messages
-	const statusDiv = document.getElementById("status");
-	statusDiv.textContent = "✅ Ready to inject checkout protection";
-	statusDiv.className = "status";
-
-	// Send reset command to content script
+	// Clear any existing content script state
 	if (currentTab) {
-		chrome.tabs.sendMessage(
-			currentTab.id,
-			{
-				action: "resetSettings",
-			},
-			function (response) {
-				if (chrome.runtime.lastError) {
-					console.log("No content script response (normal for non-ecommerce pages)");
-				}
-			}
-		);
+		chrome.tabs.sendMessage(currentTab.id, { action: "resetSettings" });
 	}
+
+	// Load fresh settings for this store
+	loadSettings();
+
+	updateStatus(`Reset for new store: ${currentDomain}`, "success");
 }
 
-function updatePageStatus() {
-	if (!currentTab) return;
+// Reset all settings (manual reset)
+function resetAllSettings() {
+	updateSettings({
+		enableDisclaimer: true,
+		disclaimerText: "We highly suggest protecting your package with Checkout+ for lost, damaged, or stolen packages.",
+		enableDoubleButton: false,
+		feeTier: "035",
+	});
 
-	// Enhanced e-commerce detection
-	const url = currentTab.url.toLowerCase();
-	const isEcommercePage = detectEcommercePageFromUrl(url);
+	updateStatus("Settings reset to defaults", "success");
+}
 
-	console.log("currentTab", currentTab);
-	console.log("window.location", window);
-
-	const statusEl = document.getElementById("pageStatus");
-	const statusDiv = document.getElementById("status");
-
-	if (isEcommercePage) {
-		statusEl.textContent = "E-commerce page detected - Ready for injection";
-		statusDiv.textContent = "✅ E-commerce page detected - Ready for injection";
-		statusDiv.className = "status";
-	} else {
-		statusEl.textContent = "Not an e-commerce page - Limited functionality";
-		statusDiv.textContent = "⚠️ Not an e-commerce page - Limited functionality";
-		statusDiv.className = "status warning";
+// Update settings
+function updateSettings(settings = null) {
+	if (!settings) {
+		settings = {
+			enableDisclaimer: document.getElementById("enableDisclaimer").checked,
+			disclaimerText: document.getElementById("disclaimerText").value,
+			enableDoubleButton: document.getElementById("enableDoubleButton").checked,
+			feeTier: document.getElementById("feeTier").value,
+		};
 	}
-}
 
-// Enhanced e-commerce detection for side panel
-function detectEcommercePageFromUrl(url) {
-	return url.includes("/checkout");
-}
+	console.log("Settings updated:", settings);
+	// Store settings with store-specific key
+	const storeKey = currentDomain ? `checkoutSettings_${currentDomain}` : "checkoutSettings";
+	chrome.storage.local.set({ [storeKey]: settings });
 
-function injectCheckout() {
-	if (!currentTab) return;
-
-	chrome.tabs.sendMessage(currentTab.id, { action: "injectCheckout" }, function (response) {
-		if (chrome.runtime.lastError) {
-			document.getElementById("status").textContent = "❌ Error: Could not inject protection";
-			document.getElementById("status").className = "status error";
-		} else if (response && response.success) {
-			document.getElementById("status").textContent = "✅ Checkout+ protection injected successfully!";
-			document.getElementById("status").className = "status";
-		} else {
-			document.getElementById("status").textContent = "⚠️ Injection completed with warnings";
-			document.getElementById("status").className = "status warning";
-		}
-	});
-}
-
-function removeProtection() {
-	if (!currentTab) return;
-
-	chrome.tabs.sendMessage(currentTab.id, { action: "removeProtection" }, function (response) {
-		if (chrome.runtime.lastError) {
-			document.getElementById("status").textContent = "❌ Error: Could not remove protection";
-			document.getElementById("status").className = "status error";
-		} else {
-			document.getElementById("status").textContent = "✅ Protection removed successfully!";
-			document.getElementById("status").className = "status";
-		}
-	});
-}
-
-function updateSettings() {
-	const settings = {
-		enableDisclaimer: document.getElementById("enableDisclaimer").checked,
-		disclaimerText: document.getElementById("disclaimerText").value,
-		enableDoubleButton: document.getElementById("enableDoubleButton").checked,
-		feeTier: document.getElementById("feeTier").value,
-	};
-
-	// Store settings in chrome storage
-	chrome.storage.local.set({ checkoutSettings: settings }, function () {
-		console.log("Settings saved:", settings);
-	});
-
-	// Send settings to content script
+	// Send to content script
 	if (currentTab) {
 		chrome.tabs.sendMessage(currentTab.id, {
 			action: "updateSettings",
@@ -138,19 +152,34 @@ function updateSettings() {
 
 // Load saved settings
 function loadSettings() {
-	chrome.storage.local.get(["checkoutSettings"], function (result) {
-		if (result.checkoutSettings) {
-			const settings = result.checkoutSettings;
+	const storeKey = currentDomain ? `checkoutSettings_${currentDomain}` : "checkoutSettings";
+
+	chrome.storage.local.get([storeKey], function (result) {
+		if (result[storeKey]) {
+			const settings = result[storeKey];
 			document.getElementById("enableDisclaimer").checked = settings.enableDisclaimer !== false;
 			document.getElementById("disclaimerText").value = settings.disclaimerText || "We highly suggest protecting your package with Checkout+ for lost, damaged, or stolen packages.";
-			document.getElementById("enableDoubleButton").checked = settings.enableDoubleButton !== false;
+			document.getElementById("enableDoubleButton").checked = settings.enableDoubleButton || false;
 			document.getElementById("feeTier").value = settings.feeTier || "035";
+			console.log(`Loaded settings for store: ${currentDomain}`);
+		} else {
+			console.log(`No saved settings for store: ${currentDomain}`);
 		}
 	});
 }
 
+// Update status message
+function updateStatus(message, type = "success") {
+	const statusDiv = document.getElementById("status");
+	statusDiv.textContent = message;
+	statusDiv.className = `status ${type}`;
+
+	// Clear after 3 seconds
+	setTimeout(() => {
+		statusDiv.textContent = "Ready to inject Checkout+";
+		statusDiv.className = "status";
+	}, 3000);
+}
+
 // Initialize when page loads
-document.addEventListener("DOMContentLoaded", function () {
-	loadSettings();
-	init();
-});
+document.addEventListener("DOMContentLoaded", init);

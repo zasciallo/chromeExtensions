@@ -1,57 +1,52 @@
+console.log("Content script loaded");
+
 let productHTML = `
-<div role="row" class="_6zbcq51i _6zbcq51h _1fragem3c _1fragem2x _6zbcq51l _6zbcq510 _6zbcq51k">
-  <div role="cell" class="_6zbcq521 _6zbcq520 _1fragem3c _1fragemp7 _6zbcq51t _6zbcq51q _1fragem8w _6zbcq51o">
-    <div style="--_16s97g746:6.4rem;" class="_1fragem32 _1fragemn2 _16s97g74b">
-      <div class="_5uqybw0 _1fragemn2 _1fragem3c _1fragem8h">
-        <div class="_5uqybw1 _1fragem3c _1fragemm3 _1fragempd _1fragem50 _1fragem6t _1fragemu _1fragemnw _1fragem8h">
-          <div style="--_1m6j2n30:1;"
-            class="_1m6j2n34 _1m6j2n33 _1fragemn2 _1fragemuw _1fragemoc _1m6j2n3a _1m6j2n39 _1m6j2n35 _1fragemmd">
-            <picture>
-              <source media="(min-width: 0px)"
-                srcset="https://cdn.shopify.com/s/files/1/2340/6095/files/SavedByLogo2_64x64.png?v=1707406598 1x, https://cdn.shopify.com/s/files/1/2340/6095/files/SavedByLogo2_128x128.png?v=1707406598 2x, https://cdn.shopify.com/s/files/1/2340/6095/files/SavedByLogo2_256x256.png?v=1707406598 4x">
-              <img src="https://cdn.shopify.com/s/files/1/2340/6095/files/SavedByLogo2_64x64.png?v=1707406598"
-                loading="eager" alt="SavedBy Package Protection"
-                class="_1h3po425 _1h3po424 _1fragem32 _1fragemly _1fragemlo _1h3po426 _1fragemqd _1fragemqb _1fragemqf _1fragemq9 _1fragemre _1fragemra _1fragemri _1fragemr6 _1fragemci _1fragemby _1fragemd2 _1fragembe _1fragemmd _1m6j2n3c _1fragempz _1fragem2x _1m6j2n35">
-            </picture>
-            <div class="_1m6j2n3q _1m6j2n3p _1fragemms">
-              <div
-                class="_1m6j2n3s _1m6j2n3r _1fragemqk _1fragemqq _1fragemr2 _1fragemqw _1fragemrf _1fragemrb _1fragemrj _1fragemr7 _1fragemj6 _1fragemhd _1fragem3c _1fragemns _1fragem87 _1m6j2n3t _1m6j2n3v _1m6j2n3l _1m6j2n3j _1fragemcn _1fragemc3 _1fragemd7 _1fragembj">
-                <span class="_1m6j2n3x _1fragemtv">Quantity</span><span aria-hidden="true">1</span>
-              </div>
-            </div>
-          </div>
+<div role="row" class="_6zbcq51k _6zbcq51j _1fragem3c _1fragem2x _1fragemn2 _6zbcq51n _6zbcq512 _6zbcq51m">
+  <div aria-hidden="true" class="_6zbcq520 _6zbcq51z _1fragem3c _1fragemp7" style="--_6zbcq54: 3.2rem;">
+    <div
+      class="_6zbcq523 _6zbcq522 _1fragemqf _1fragemqd _1fragemqh _1fragemqb _1fragemci _1fragemby _1fragemd2 _1fragembe _1fragem46 _6zbcq525 _6zbcq524 _1fragem2x _1fragemms">
+    </div>
+    <div
+      class="_6zbcq523 _6zbcq522 _1fragemqf _1fragemqd _1fragemqh _1fragemqb _1fragemci _1fragemby _1fragemd2 _1fragembe _1fragem46 _6zbcq527 _6zbcq526 _1fragemn2">
+    </div>
+  </div>
+  <div role="cell" class="_6zbcq52d _6zbcq52c _1fragem3c _1fragemp7 _6zbcq51w _6zbcq51t _1fragem8w _6zbcq51q">
+    <div class="_1m6j2n34 _1m6j2n33 _1fragemn2 _1fragemuy _1fragemoc _1m6j2n3e _1m6j2n39 _1m6j2n35 _1fragemmd"
+      style="--_1m6j2n30: 1;">
+      <picture>
+        <source media="(min-width: 0px)"
+          srcset="https://cdn.shopify.com/s/files/1/0091/1386/2249/files/SavedByLogo2_64x64.png?v=1721235815 1x, https://cdn.shopify.com/s/files/1/0091/1386/2249/files/SavedByLogo2_128x128.png?v=1721235815 2x, https://cdn.shopify.com/s/files/1/0091/1386/2249/files/SavedByLogo2_256x256.png?v=1721235815 4x">
+        <img src="https://cdn.shopify.com/s/files/1/0091/1386/2249/files/SavedByLogo2_64x64.png?v=1721235815"
+          alt="SavedBy Package Protection Shipping Insurance" loading="eager"
+          class="_1m6j2n3g _1fragemq1 _1fragem2x _1fragem32 _1m6j2n3m _1m6j2n3k _1fragemrg _1fragemrc _1fragemrk _1fragemr8 _1m6j2n3p _1m6j2n3n _1fragemcn _1fragemc3 _1fragemd7 _1fragembj _1m6j2n35 _1fragemmd">
+      </picture>
+      <div class="_1m6j2n3s _1m6j2n3r _1fragemms">
+        <div
+          class="_1m6j2n3u _1m6j2n3t _1fragemql _1fragemqr _1fragemr3 _1fragemqx _1fragemrg _1fragemrc _1fragemrk _1fragemr8 _1fragemj6 _1fragemhd _1fragem3c _1fragemns _1fragem87 _1m6j2n3v _1m6j2n3x _1m6j2n3p _1m6j2n3n _1fragemcn _1fragemc3 _1fragemd7 _1fragembj">
+          <span class="_1m6j2n3z _1fragemtw">Quantity</span><span aria-hidden="true">1</span>
         </div>
       </div>
     </div>
-  </div>
-  <div role="cell" style="--_16s97g73w:6.4rem;"
-    class="_6zbcq521 _6zbcq520 _1fragem3c _1fragemp7 _6zbcq51u _6zbcq51r _1fragem87 _6zbcq51p _6zbcq51n _1fragemny _6zbcq51x _6zbcq51w _1fragempa _16s97g741">
-    <div class="_1fragem32 _1fragemn2 dDm6x">
-      <p class="_1tx8jg70 _1fragemn2 _1tx8jg7c _1tx8jg7b _1fragempg _1tx8jg715 _1tx8jg71d _1tx8jg71f">SavedBy Package
-        Protection</p>
-      <div class="_1ip0g651 _1ip0g650 _1fragemn2 _1fragem5z _1fragem7s _1fragem41">
-        <p class="_1tx8jg70 _1fragemn2 _1tx8jg7a _1tx8jg79 _1fragempf _1tx8jg715 _1tx8jg71e _1tx8jg71f">Tier 8</p>
-        <ul class="_1ip0g651 _1ip0g650 _1fragemn2 _1fragem4g _1fragem69 _1fragem41"></ul>
-        <div class="Geu8c" style="">
-          <div class="M4bqA Geu8c" style="">
-            <div class="_1fragem32 _1fragemn2">
-              <div><button aria-busy="false" aria-label="Remove SavedBy" aria-live="polite" type="button"
-                  class="_1m2hr9ge _1m2hr9gd _1fragemuk _1fragemn2 _1fragemp4 _1fragemty _1fragemud _1fragemuf _1fragemu4 _1m2hr9g1h _1m2hr9g1e _1fragemuf _1fragemud _1fragemu3 _1fragemts _1m2hr9gi _1m2hr9gg _1fragem3m _1m2hr9g1w _1m2hr9g1b _1m2hr9g1j _1m2hr9g1i _1fragemu0"><span
-                    class="_1m2hr9gv _1m2hr9gu _1fragemtu _1fragemu9 _1fragemu3 _1fragemug _1m2hr9gr _1m2hr9gp _1fragem3c _1fragem87 _1fragemtw">Remove</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div role="cell" class="_6zbcq521 _6zbcq520 _1fragem3c _1fragemp7 _6zbcq51u _6zbcq51r _1fragem87 _6zbcq51o _6zbcq51y">
-    <div class="_6zbcq522 _1fragemtv"><span class="_19gi7yt0 _19gi7yt2 _19gi7yt12 _19gi7yt1a _19gi7yt1g">1</span></div>
   </div>
   <div role="cell"
-    class="_6zbcq521 _6zbcq520 _1fragem3c _1fragemp7 _6zbcq51u _6zbcq51r _1fragem87 _6zbcq51p _6zbcq51n _1fragemny">
-    <div class="_197l2ofx _1fragemp7 _1fragemnu _1fragem3c _1fragemn2 Byb5s"><span
-        class="_19gi7yt0 _19gi7yt2 _19gi7yt12 _19gi7yt1a _19gi7yt1g notranslate">$12.97</span></div>
+    class="_6zbcq52d _6zbcq52c _1fragem3c _1fragemp7 _6zbcq51x _6zbcq51u _1fragem87 _6zbcq51r _6zbcq51p _1fragemny _6zbcq529 _6zbcq528 _1fragempa _16s97g741"
+    style="--_16s97g73w: 6.4rem;">
+    <div class="_1fragem32 _1fragemn2 dDm6x">
+      <p class="_1tx8jg70 _1fragemn2 _1tx8jg7e _1tx8jg7d _1fragemph _1tx8jg717 _1tx8jg71f _1tx8jg71h">SavedBy Package
+        Protection</p>
+      <div class="_1ip0g651 _1ip0g650 _1fragemn2 _1fragem5z _1fragem7s _1fragem41">
+        <p class="_1tx8jg70 _1fragemn2 _1tx8jg7c _1tx8jg7b _1fragempg _1tx8jg717 _1tx8jg71g _1tx8jg71h">$1.67</p>
+        <ul class="_1ip0g651 _1ip0g650 _1fragemn2 _1fragem4g _1fragem69 _1fragem41"></ul>
+      </div>
+    </div>
+  </div>
+  <div role="cell" class="_6zbcq52d _6zbcq52c _1fragem3c _1fragemp7 _6zbcq51x _6zbcq51u _1fragem87 _6zbcq51q _6zbcq52a">
+    <div class="_6zbcq52e _1fragemtw"><span class="_19gi7yt0 _19gi7yt16 _19gi7yt1e _19gi7yt1k _1fragem3h">1</span></div>
+  </div>
+  <div role="cell"
+    class="_6zbcq52d _6zbcq52c _1fragem3c _1fragemp7 _6zbcq51x _6zbcq51u _1fragem87 _6zbcq51r _6zbcq51p _1fragemny">
+    <div class="_197l2ofx _1fragemp7 _1fragemnu _1fragem3c _1fragemn2 Byb5s"><span translate="no"
+        class="_19gi7yt0 _19gi7yt16 _19gi7yt1e _19gi7yt1k _1fragem3h notranslate">$1.67</span></div>
   </div>
 </div>
 `;
@@ -70,38 +65,38 @@ let checkoutWidgetHTML = `
               <div>
                 <div class="_1mmswk94 _1mmswk93 _1fragemn2 _1fragem3c">
                   <div class="_1mmswk96 _1mmswk95 _1fragemn2 _1fragempb"><input type="checkbox" id="DeprecatedCheckbox0"
-                      class="_1mmswk98 _1mmswk97 _1fragemqf _1fragemqd _1fragemqh _1fragemqb _1fragemrf _1fragemrb _1fragemrj _1fragemr7 _1fragemci _1fragemby _1fragemd2 _1fragembe _1fragemp4 _1fragem32 _1fragemq0 _1fragem2x _1fragemu9 _1fragemu3 _1fragemug _1mmswk99 _1fragemov _1mmswk9c _1mmswk9a _1fragemus">
+                      class="_1mmswk98 _1mmswk97 _1fragemqg _1fragemqe _1fragemqi _1fragemqc _1fragemrg _1fragemrc _1fragemrk _1fragemr8 _1fragemci _1fragemby _1fragemd2 _1fragembe _1fragemp4 _1fragem32 _1fragemq1 _1fragem2x _1fragemub _1fragemu5 _1fragemui _1mmswk99 _1fragemov _1mmswk9c _1mmswk9a _1fragemuu">
                     <div
-                      class="_1mmswk9m _1mmswk9l _1fragemov _1fragemtu _1fragemtd _1fragemms _1fragemu3 _1fragemuj _1fragemu9">
+                      class="_1mmswk9m _1mmswk9l _1fragemov _1fragemtv _1fragemte _1fragemms _1fragemu5 _1fragemul _1fragemub">
                       <span
-                        class="a8x1wu2 a8x1wu1 _1fragemq0 _1fragem2x _1fragemly _1fragemlo a8x1wu9 a8x1wui a8x1wum a8x1wuk _1fragem32 a8x1wup a8x1wuo a8x1wuw"><svg
+                        class="a8x1wu2 a8x1wu1 _1fragemq1 _1fragem2x _1fragemly _1fragemlo a8x1wu9 a8x1wui a8x1wum a8x1wuk _1fragem32 a8x1wup a8x1wuo a8x1wuw"><svg
                           xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" focusable="false" aria-hidden="true"
-                          class="a8x1wuy a8x1wux _1fragem32 _1fragemq0 _1fragemly _1fragemlo _1fragemp6">
+                          class="a8x1wuy a8x1wux _1fragem32 _1fragemq1 _1fragemly _1fragemlo _1fragemp6">
                           <path stroke-linecap="round" stroke-linejoin="round"
                             d="m1.5 7.097 3.596 3.602c.104.105.156.157.216.175a.25.25 0 0 0 .16-.004c.059-.022.108-.077.206-.188L12.5 3">
                           </path>
-                        </svg></span>
-                    </div>
+                        </svg></span></div>
                   </div>
                 </div>
               </div><span
-                class="_19gi7yt0 _19gi7yt2 _19gi7yti _19gi7yth _1fragemph _19gi7yt12 _19gi7yt1a _19gi7yt1g">SavedBy
-                Package Protection</span>
+                class="_19gi7yt0 _19gi7yt4 _19gi7ytm _19gi7ytl _1fragempi _19gi7yt16 _19gi7yt1e _19gi7yt1k">SavedBy
+                Package Protection</span><span
+                class="_19gi7yt0 _19gi7yt4 _19gi7yti _19gi7yth _1fragempg _19gi7yt16 _19gi7yt1f _19gi7yt1k">$1.67</span>
               <div class="_197l2ofx _1fragemp7 _1fragemns _1fragem3c _1fragemn2"><button type="button"
-                  class="_1m2hr9ge _1m2hr9gd _1fragemuk _1fragemn2 _1fragemp4 _1fragemty _1fragemud _1fragemuf _1fragemu4 _1m2hr9g1h _1m2hr9g1e _1fragemuf _1fragemud _1fragemu3 _1fragemts _1m2hr9gi _1m2hr9gg _1fragem3m _1m2hr9g1w _1m2hr9g1a _1m2hr9g18 _1fragemq1 _1m2hr9g1j _1m2hr9g1i _1fragemu0"
+                  class="_1m2hr9ge _1m2hr9gd _1fragemum _1fragemn2 _1fragemp4 _1fragemtz _1fragemuf _1fragemuh _1fragemu6 _1m2hr9g1h _1m2hr9g1e _1fragemuh _1fragemuf _1fragemu5 _1fragemtt _1m2hr9gi _1m2hr9gg _1fragem3m _1m2hr9g1w _1m2hr9g1a _1m2hr9g18 _1fragemq2 _1m2hr9g1j _1m2hr9g1i _1fragemu2"
                   aria-haspopup="dialog"><span
-                    class="_1m2hr9gv _1m2hr9gu _1fragemtu _1fragemu9 _1fragemu3 _1fragemug _1m2hr9gr _1m2hr9gp _1fragem3c _1fragem87 _1fragemtw"><span
-                      class="a8x1wu2 a8x1wu1 _1fragemq0 _1fragem2x _1fragemly _1fragemlo a8x1wu9 a8x1wui a8x1wum a8x1wuk _1fragem32 a8x1wur a8x1wuo a8x1wuw"><svg
+                    class="_1m2hr9gv _1m2hr9gu _1fragemtv _1fragemub _1fragemu5 _1fragemui _1m2hr9gr _1m2hr9gp _1fragem3c _1fragem87 _1fragemtx"><span
+                      class="a8x1wu2 a8x1wu1 _1fragemq1 _1fragem2x _1fragemly _1fragemlo a8x1wu9 a8x1wui a8x1wum a8x1wuk _1fragem32 a8x1wur a8x1wuo a8x1wuw"><svg
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" focusable="false" aria-hidden="true"
-                        class="a8x1wuy a8x1wux _1fragem32 _1fragemq0 _1fragemly _1fragemlo _1fragemp6">
-                        <g clip-path="url(#a)">
+                        class="a8x1wuy a8x1wux _1fragem32 _1fragemq1 _1fragemly _1fragemlo _1fragemp6">
+                        <g clip-path="url(#questionCircle_svg__a)">
                           <circle cx="7" cy="7" r="5.5"></circle>
                           <path stroke-linejoin="round" d="M6.99 10.24h.02v.02h-.02z"></path>
                           <path stroke-linecap="round"
                             d="M5.5 5.25a1.5 1.5 0 1 1 2.428 1.179C7.494 6.77 7 7.198 7 7.75"></path>
                         </g>
                         <defs>
-                          <clipPath id="a">
+                          <clipPath id="questionCircle_svg__a">
                             <path fill="#fff" d="M0 0h14v14H0z"></path>
                           </clipPath>
                         </defs>
@@ -109,7 +104,7 @@ let checkoutWidgetHTML = `
             </div>
           </div>
           <div class="_16s97g74v"></div>
-          <p class="_1tx8jg70 _1fragemn2 _1tx8jg715 _1tx8jg71d _1tx8jg71g _1tx8jg7a _1tx8jg79 _1fragempf">Add SavedBy
+          <p class="_1tx8jg70 _1fragemn2 _1tx8jg717 _1tx8jg71f _1tx8jg71i _1tx8jg7c _1tx8jg7b _1fragempg">Add SavedBy
             for peace of mind against lost, stolen, or damaged packages.</p>
         </div>
       </div>
@@ -118,7 +113,9 @@ let checkoutWidgetHTML = `
 </div>
 `;
 
-console.log("Shopify Checkout Button Modifier initialized");
+console.log("Checkout+ Content Script Loaded Successfully!");
+console.log("Current URL:", window.location.href);
+console.log("Content script is ready to receive messages");
 
 function formatPrice(cents) {
 	return `$${(cents / 100).toFixed(2)}`;
@@ -497,12 +494,17 @@ function createCheckoutPlus(button, fee) {
       line-height: 1.2;
       text-align: center;
     }
+
+    .sb__info-logo-container > svg {
+      height: 24px;
+      aspect-ratio: 1;
+      fill: var(--info-icon-color, #22a9db);
+    }
   </style>
   <div class="sb__parent">
     <div data-variant="SIMPLE" class="sb__info-wrapper">
       <div class="sb__info-container">
-        <div class="sb__info-logo-container"><img alt="Protection Logo"
-            src="https://cdn.savedby.io/logos/savedby/SavedByLogo-small.png"></div>
+        <div class="sb__info-logo-container"><svg xmlns="http://www.w3.org/2000/svg" zoomAndPan="magnify" viewBox="0 0 900 899.99999" preserveAspectRatio="xMidYMid meet" version="1.2"><defs><clipPath id="f7421b8fc4"><path d="M 36 36 L 865 36 L 865 865 L 36 865 Z M 36 36 "></path></clipPath><clipPath id="e5329d5a89"><path d="M 300.722656 -117.992188 L 1017.742188 300.574219 L 599.171875 1017.59375 L -117.847656 599.023438 Z M 300.722656 -117.992188 "></path></clipPath><clipPath id="78f033fdf2"><path d="M 300.722656 -117.992188 L 1017.742188 300.574219 L 599.171875 1017.59375 L -117.847656 599.023438 Z M 300.722656 -117.992188 "></path></clipPath></defs><g id="f2d2a9abd8"><g clip-rule="nonzero" clip-path="url(#f7421b8fc4)"><g clip-rule="nonzero" clip-path="url(#e5329d5a89)"><g clip-rule="nonzero" clip-path="url(#78f033fdf2)"><path d="M 52.585938 386.171875 L 56.472656 301.042969 L 99.03125 302.996094 C 164.75 305.980469 237.886719 305.734375 274 264.683594 C 302.085938 232.753906 309.0625 175.113281 294.734375 93.363281 L 287.371094 51.402344 L 371.296875 36.679688 L 378.65625 78.640625 C 397.933594 188.625 384.640625 267.894531 337.972656 320.941406 C 271.847656 396.15625 156.878906 390.894531 95.136719 388.089844 Z M 300.644531 844.648438 L 302.59375 802.089844 C 305.59375 736.347656 305.335938 663.234375 264.28125 627.117188 C 232.386719 599.027344 174.714844 592.058594 92.964844 606.386719 L 51.003906 613.746094 L 36.28125 529.824219 L 78.242188 522.460938 C 188.214844 503.152344 267.449219 516.363281 320.542969 563.148438 C 395.757812 629.269531 390.507812 744.21875 387.691406 805.980469 L 385.738281 848.539062 Z M 529.394531 864.792969 L 522.03125 822.832031 C 502.734375 712.835938 516.046875 633.578125 562.730469 580.507812 C 628.839844 505.316406 743.789062 510.566406 805.550781 513.382812 L 848.109375 515.332031 L 844.226562 600.464844 L 801.667969 598.511719 C 735.925781 595.515625 662.8125 595.769531 626.710938 636.804688 C 598.613281 668.753906 591.648438 726.371094 605.957031 808.109375 L 613.316406 850.070312 Z M 607.753906 358.304688 C 597.851562 352.523438 588.667969 345.894531 580.128906 338.402344 C 504.917969 272.277344 510.179688 157.308594 512.980469 95.566406 L 514.933594 53.007812 L 600.0625 56.890625 L 598.132812 99.460938 C 595.148438 165.183594 595.394531 238.316406 636.425781 274.421875 C 668.300781 302.445312 725.960938 309.492188 807.742188 295.152344 L 849.703125 287.792969 L 864.425781 371.71875 L 822.464844 379.078125 C 730.109375 395.25 659.441406 388.476562 607.753906 358.304688 Z M 607.753906 358.304688 " style="stroke: none; fill-rule: nonzero; fill-opacity: 1;"></path></g></g></g></g></svg></div>
         <div class="sb__info-text-wrapper">
           <div class="sb__info-text-container"><span name="title">Checkout+</span>
             <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
@@ -577,7 +579,10 @@ function updateCheckoutButton(totalPrice) {
 		"button.checkout.button",
 		"input[name='checkout']",
 		".boost-cart__checkout-cta",
-		"a[href='/checkout']",
+		"a[href*=checkout]",
+		".al_sidecart .bottom-0 button",
+		"button.CartDrawer-checkoutButton",
+		"div.rebuy-cart__flyout-actions button.rebuy-button",
 	];
 
 	const buttons = document.querySelectorAll(buttonSelectors.join(", "));
@@ -639,7 +644,7 @@ function injectLabel() {
 	}
 
 	console.log("Shopify theme detected, fetching cart data to update checkout button.");
-	fetch("/cart.js?view=checkout")
+	fetch("/cart.js?sb=true")
 		.then((res) => res.json())
 		.then((cart) => {
 			updateCheckoutButton(cart.total_price);
@@ -648,183 +653,6 @@ function injectLabel() {
 			console.error("Error fetching cart data:", err);
 			updateCheckoutButton(7000);
 		});
-}
-
-// Add a floating button to open the sidepanel
-function addFloatingButton() {
-	if (document.getElementById("checkout-plus-btn")) return;
-
-	const button = document.createElement("div");
-	button.id = "checkout-plus-btn";
-	button.innerHTML = "🛒";
-	button.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: #007bff;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    cursor: pointer;
-    z-index: 10000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-  `;
-
-	button.addEventListener("mouseenter", () => {
-		button.style.transform = "scale(1.1)";
-		button.style.background = "#0056b3";
-	});
-
-	button.addEventListener("mouseleave", () => {
-		button.style.transform = "scale(1)";
-		button.style.background = "#007bff";
-	});
-
-	button.addEventListener("click", () => {
-		chrome.runtime.sendMessage({ action: "openSidepanel" });
-	});
-
-	document.body.appendChild(button);
-}
-
-// Enhanced e-commerce detection for any store
-function detectEcommercePage() {
-	const url = window.location.href.toLowerCase();
-	const pathname = window.location.pathname.toLowerCase();
-
-	// Common e-commerce page patterns
-	const checkoutPatterns = ["/checkout"];
-
-	// Common e-commerce button selectors
-	const checkoutSelectors = [
-		'button[name="checkout"]',
-		'a[href*="checkout"]',
-		'input[name="checkout"]',
-		'button[class*="checkout"]',
-		'a[class*="checkout"]',
-		'button[class*="proceed"]',
-		'button[class*="buy"]',
-		'button[class*="purchase"]',
-		'button[class*="order"]',
-		'button[class*="pay"]',
-		'a[class*="checkout"]',
-		'a[class*="proceed"]',
-		'button[class*="cart-checkout"]',
-		'button[class*="cart-proceed"]',
-		'[data-testid*="checkout"]',
-		'[data-testid*="proceed"]',
-		'button:contains("Checkout")',
-		'button:contains("Proceed")',
-		'button:contains("Buy")',
-		'button:contains("Order")',
-		'button:contains("Pay")',
-		'button:contains("Purchase")',
-	];
-
-	// Check URL patterns
-	const hasCheckoutUrl = pathname.includes("/checkout");
-
-	// Check for checkout buttons
-	const hasCheckoutButtons = checkoutSelectors.some((selector) => {
-		try {
-			return document.querySelector(selector) !== null;
-		} catch (e) {
-			return false;
-		}
-	});
-
-	// Additional e-commerce indicators
-	const hasCartIndicators = document.querySelector('[class*="cart"], [id*="cart"], [class*="basket"], [id*="basket"]') !== null;
-	const hasPriceElements = document.querySelector('[class*="price"], [class*="total"], [class*="subtotal"]') !== null;
-
-	return hasCheckoutUrl || hasCheckoutButtons || (hasCartIndicators && hasPriceElements);
-}
-
-// Reset settings when navigating to new pages
-function resetSettingsForNewPage() {
-	console.log("Resetting settings for new page...");
-
-	// Reset fee tier to default
-	tierRate = "035";
-
-	// Remove any existing widgets
-	removeProtection();
-
-	// Clear any stored page-specific settings
-	if (typeof chrome !== "undefined" && chrome.storage) {
-		chrome.storage.local.remove(["pageSpecificSettings"], () => {
-			console.log("Page-specific settings cleared");
-		});
-	}
-}
-
-// Track page changes
-let currentUrl = window.location.href;
-function checkForPageChange() {
-	if (window.location.href !== currentUrl) {
-		console.log("Page changed, resetting settings");
-		currentUrl = window.location.href;
-		resetSettingsForNewPage();
-	}
-}
-
-// Initialize the content script
-function init() {
-	// Check if we're on an e-commerce page
-	const isEcommercePage = detectEcommercePage();
-
-	if (isEcommercePage) {
-		console.log("E-commerce page detected! Ready for manual injection.");
-		// Auto-injection disabled - user must manually inject via side panel
-	} else {
-		console.log("Not an e-commerce page - extension will not activate");
-	}
-
-	// Set up page change monitoring
-	setInterval(checkForPageChange, 1000);
-}
-
-// Run initialization
-if (document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", init);
-} else {
-	init();
-}
-
-// Remove all Checkout+ elements from the page
-function removeProtection() {
-	console.log("Removing Checkout+ protection...");
-
-	// Remove all savedby widgets
-	const widgets = document.querySelectorAll("savedby-checkout-plus, #savedby-checkout-plus-widget, #savedby-checkbox-widget, #savedby-product-card");
-	widgets.forEach((widget) => {
-		widget.remove();
-		console.log("Removed widget:", widget);
-	});
-
-	// Remove floating button
-	const floatingBtn = document.getElementById("checkout-plus-btn");
-	if (floatingBtn) {
-		floatingBtn.remove();
-		console.log("Removed floating button");
-	}
-
-	// Restore original checkout buttons (this is a simplified approach)
-	const checkoutButtons = document.querySelectorAll('button[name="checkout"], a[href*="checkout"], input[name="checkout"]');
-	checkoutButtons.forEach((button) => {
-		// Remove any Checkout+ styling or text modifications
-		if (button.textContent.includes("Checkout+")) {
-			button.textContent = button.textContent.replace("Checkout+", "Checkout");
-		}
-	});
-
-	console.log("Checkout+ protection removed");
 }
 
 // Update settings from sidepanel
@@ -858,7 +686,9 @@ function updateSettings(settings) {
 			if (settings.enableDoubleButton) {
 				console.log("enableDoubleButton", settings.enableDoubleButton);
 				if (!extraCss.innerHTML.includes("double-button")) {
+					console.log("Parent:", parent);
 					const widgetButton = parent.querySelector("[slot=savedby-checkout-button]");
+					console.log("Widget Button:", widgetButton);
 					const elHeight = widgetButton.offsetHeight;
 
 					const styles = window.getComputedStyle(widgetButton);
@@ -929,11 +759,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	switch (message.action) {
 		case "injectCheckout":
 			injectLabel();
-			sendResponse({ success: true });
-			break;
-
-		case "removeProtection":
-			removeProtection();
 			sendResponse({ success: true });
 			break;
 

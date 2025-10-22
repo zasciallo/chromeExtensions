@@ -127,21 +127,30 @@
       font-size: 12px;
       margin-top: 5px;
     }
+
+    .url-info {
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #6c757d;
+      word-break: break-all;
+    }
   </style>
 </head>
 
 <body>
   <div class="header">
-    <h1>🛒 Checkout+ Control</h1>
+    <h1>Checkout+ Control</h1>
     <p>Universal E-commerce Package Protection</p>
   </div>
 
   <div id="status" class="status">
-    ✅ Ready to inject checkout protection
+    Ready to inject Checkout+
   </div>
 
   <div class="control-card">
-    <h3>🎛️ Injection Controls</h3>
+    <h3>Injection Controls</h3>
 
     <div class="control-group">
       <button id="injectBtn" class="button">Inject Checkout+ Protection</button>
@@ -152,10 +161,15 @@
       <button id="removeBtn" class="button secondary">Remove Protection</button>
       <div class="info-text">Remove all Checkout+ elements from the current page.</div>
     </div>
+
+    <div class="control-group">
+      <button id="resetBtn" class="button secondary">Reset Settings</button>
+      <div class="info-text">Reset all settings to defaults and clear any stored data.</div>
+    </div>
   </div>
 
   <div class="control-card">
-    <h3>⚙️ Protection Settings</h3>
+    <h3>Protection Settings</h3>
 
     <div class="control-group">
       <div class="checkbox-label">
@@ -188,10 +202,9 @@
   </div>
 
   <div class="control-card">
-    <h3>📊 Current Page Info</h3>
-    <div id="pageInfo">
-      <p><strong>URL:</strong> <span id="currentUrl">Loading...</span></p>
-      <p><strong>Status:</strong> <span id="pageStatus">Checking...</span></p>
+    <h3>Current Page</h3>
+    <div class="url-info">
+      <strong>URL:</strong> <span id="currentUrl">Loading...</span>
     </div>
   </div>
 
