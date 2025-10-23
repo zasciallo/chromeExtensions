@@ -41,6 +41,12 @@ function init() {
 	document.getElementById("enableDoubleButton").addEventListener("change", () => updateSettings());
 	document.getElementById("feeTier").addEventListener("change", () => updateSettings());
 
+	//Style controls hookup
+	const styleControls = document.querySelectorAll("#styleControls input");
+	styleControls.forEach((control) => {
+		control.addEventListener("input", updateStyles);
+	});
+
 	// Listen for tab changes
 	chrome.tabs.onActivated.addListener((activeInfo) => {
 		console.log("Tab activated:", activeInfo.tabId);
@@ -64,7 +70,7 @@ function injectCheckout() {
 	chrome.scripting.executeScript(
 		{
 			target: { tabId: currentTab.id },
-			files: ["content-script.js"],
+			files: ["content-script.js", "content-styles.js"],
 		},
 		() => {
 			if (chrome.runtime.lastError) {
@@ -181,5 +187,22 @@ function updateStatus(message, type = "success") {
 	}, 3000);
 }
 
-// Initialize when page loads
+// Initialize when page loadsgit@github.com:zasciallo/chromeExtensions.git
 document.addEventListener("DOMContentLoaded", init);
+
+//STYLE FUNCTIONS
+function updateStyles(e) {
+	const type = e.target.dataset.type;
+	const value = e.target.value;
+	const unit = e.target.dataset?.unit;
+	document.getElementById(type).textContent = value;
+	chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+		chrome.tabs.sendMessage(tab.id, { target: "content-styles", action: "updateStyle", arg: { type: type, value: value, unit: unit } }, (res) => {
+			if (chrome.runtime.lastError) {
+				console.error("Error:", chrome.runtime.lastError.message);
+				return;
+			}
+			console.log("Button text:", res?.text);
+		});
+	});
+}

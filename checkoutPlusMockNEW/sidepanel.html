@@ -1,214 +1,231 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<title>Checkout+ Control Panel</title>
+		<style>
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+				margin: 0;
+				padding: 20px;
+				background: #f8f9fa;
+				color: #333;
+			}
 
-<head>
-  <title>Checkout+ Control Panel</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f8f9fa;
-      color: #333;
-    }
+			.header {
+				text-align: center;
+				margin-bottom: 30px;
+				padding-bottom: 20px;
+				border-bottom: 2px solid #e9ecef;
+			}
 
-    .header {
-      text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #e9ecef;
-    }
+			.header h1 {
+				margin: 0;
+				color: #2c3e50;
+				font-size: 24px;
+			}
 
-    .header h1 {
-      margin: 0;
-      color: #2c3e50;
-      font-size: 24px;
-    }
+			.header p {
+				margin: 8px 0 0 0;
+				color: #6c757d;
+				font-size: 14px;
+			}
 
-    .header p {
-      margin: 8px 0 0 0;
-      color: #6c757d;
-      font-size: 14px;
-    }
+			.control-card {
+				background: white;
+				border-radius: 8px;
+				padding: 20px;
+				margin-bottom: 15px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+				border-left: 4px solid #007bff;
+			}
 
-    .control-card {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 15px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      border-left: 4px solid #007bff;
-    }
+			.control-card h3 {
+				margin: 0 0 15px 0;
+				color: #2c3e50;
+				font-size: 16px;
+			}
 
-    .control-card h3 {
-      margin: 0 0 15px 0;
-      color: #2c3e50;
-      font-size: 16px;
-    }
+			.control-group {
+				margin-bottom: 15px;
+			}
 
-    .control-group {
-      margin-bottom: 15px;
-    }
+			.control-group label {
+				display: block;
+				margin-bottom: 5px;
+				font-weight: 500;
+				color: #495057;
+			}
 
-    .control-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
-      color: #495057;
-    }
+			.control-group input,
+			.control-group select {
+				width: 100%;
+				padding: 8px 12px;
+				border: 1px solid #ced4da;
+				border-radius: 4px;
+				font-size: 14px;
+				box-sizing: border-box;
+			}
 
-    .control-group input,
-    .control-group select {
-      width: 100%;
-      padding: 8px 12px;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
+			.control-group input[type="checkbox"] {
+				width: auto;
+				margin-right: 8px;
+			}
 
-    .control-group input[type="checkbox"] {
-      width: auto;
-      margin-right: 8px;
-    }
+			.checkbox-label {
+				display: flex;
+				align-items: center;
+				margin-bottom: 10px;
+			}
 
-    .checkbox-label {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+			.button {
+				background: #007bff;
+				color: white;
+				border: none;
+				padding: 10px 20px;
+				border-radius: 6px;
+				cursor: pointer;
+				font-size: 14px;
+				width: 100%;
+				margin-top: 10px;
+			}
 
-    .button {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      width: 100%;
-      margin-top: 10px;
-    }
+			.button:hover {
+				background: #0056b3;
+			}
 
-    .button:hover {
-      background: #0056b3;
-    }
+			.button.secondary {
+				background: #6c757d;
+			}
 
-    .button.secondary {
-      background: #6c757d;
-    }
+			.button.secondary:hover {
+				background: #545b62;
+			}
 
-    .button.secondary:hover {
-      background: #545b62;
-    }
+			.status {
+				text-align: center;
+				padding: 10px;
+				background: #d4edda;
+				color: #155724;
+				border-radius: 6px;
+				margin-bottom: 20px;
+				font-size: 14px;
+			}
 
-    .status {
-      text-align: center;
-      padding: 10px;
-      background: #d4edda;
-      color: #155724;
-      border-radius: 6px;
-      margin-bottom: 20px;
-      font-size: 14px;
-    }
+			.status.error {
+				background: #f8d7da;
+				color: #721c24;
+			}
 
-    .status.error {
-      background: #f8d7da;
-      color: #721c24;
-    }
+			.status.warning {
+				background: #fff3cd;
+				color: #856404;
+			}
 
-    .status.warning {
-      background: #fff3cd;
-      color: #856404;
-    }
+			.info-text {
+				color: #6c757d;
+				font-size: 12px;
+				margin-top: 5px;
+			}
 
-    .info-text {
-      color: #6c757d;
-      font-size: 12px;
-      margin-top: 5px;
-    }
+			.url-info {
+				background: #e9ecef;
+				padding: 10px;
+				border-radius: 4px;
+				font-size: 12px;
+				color: #6c757d;
+				word-break: break-all;
+			}
+		</style>
+	</head>
 
-    .url-info {
-      background: #e9ecef;
-      padding: 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      color: #6c757d;
-      word-break: break-all;
-    }
-  </style>
-</head>
+	<body>
+		<div class="header">
+			<h1>Checkout+ Control</h1>
+			<p>Universal E-commerce Package Protection</p>
+		</div>
 
-<body>
-  <div class="header">
-    <h1>Checkout+ Control</h1>
-    <p>Universal E-commerce Package Protection</p>
-  </div>
+		<div id="status" class="status">Ready to inject Checkout+</div>
 
-  <div id="status" class="status">
-    Ready to inject Checkout+
-  </div>
+		<div class="control-card">
+			<h3>Injection Controls</h3>
 
-  <div class="control-card">
-    <h3>Injection Controls</h3>
+			<div class="control-group">
+				<button id="injectBtn" class="button">Inject Checkout+ Protection</button>
+				<div class="info-text">This will add package protection to checkout buttons on any e-commerce page.</div>
+			</div>
 
-    <div class="control-group">
-      <button id="injectBtn" class="button">Inject Checkout+ Protection</button>
-      <div class="info-text">This will add package protection to checkout buttons on any e-commerce page.</div>
-    </div>
+			<div class="control-group">
+				<button id="removeBtn" class="button secondary">Remove Protection</button>
+				<div class="info-text">Remove all Checkout+ elements from the current page.</div>
+			</div>
 
-    <div class="control-group">
-      <button id="removeBtn" class="button secondary">Remove Protection</button>
-      <div class="info-text">Remove all Checkout+ elements from the current page.</div>
-    </div>
+			<div class="control-group">
+				<button id="resetBtn" class="button secondary">Reset Settings</button>
+				<div class="info-text">Reset all settings to defaults and clear any stored data.</div>
+			</div>
+		</div>
 
-    <div class="control-group">
-      <button id="resetBtn" class="button secondary">Reset Settings</button>
-      <div class="info-text">Reset all settings to defaults and clear any stored data.</div>
-    </div>
-  </div>
+		<div class="control-card">
+			<h3>Protection Settings</h3>
 
-  <div class="control-card">
-    <h3>Protection Settings</h3>
+			<div class="control-group">
+				<div class="checkbox-label">
+					<input type="checkbox" id="enableDisclaimer" checked />
+					<label for="enableDisclaimer">Enable Disclaimer Text</label>
+				</div>
+			</div>
 
-    <div class="control-group">
-      <div class="checkbox-label">
-        <input type="checkbox" id="enableDisclaimer" checked>
-        <label for="enableDisclaimer">Enable Disclaimer Text</label>
-      </div>
-    </div>
+			<div class="control-group">
+				<label for="disclaimerText">Disclaimer Text:</label>
+				<input type="text" id="disclaimerText" placeholder="Enter custom disclaimer text" value="We highly suggest protecting your package with Checkout+ for lost, damaged, or stolen packages." />
+			</div>
 
-    <div class="control-group">
-      <label for="disclaimerText">Disclaimer Text:</label>
-      <input type="text" id="disclaimerText" placeholder="Enter custom disclaimer text"
-        value="We highly suggest protecting your package with Checkout+ for lost, damaged, or stolen packages.">
-    </div>
+			<div class="control-group">
+				<div class="checkbox-label">
+					<input type="checkbox" id="enableDoubleButton" />
+					<label for="enableDoubleButton">Enable Double Button Style</label>
+				</div>
+			</div>
 
-    <div class="control-group">
-      <div class="checkbox-label">
-        <input type="checkbox" id="enableDoubleButton">
-        <label for="enableDoubleButton">Enable Double Button Style</label>
-      </div>
-    </div>
+			<div class="control-group">
+				<label for="feeTier">Fee Tier:</label>
+				<select id="feeTier">
+					<option value="035">3.5% (Default)</option>
+					<option value="040">4.0%</option>
+					<option value="045">4.5%</option>
+				</select>
+			</div>
+		</div>
+		<!-- New: Style Controls -->
+		<div class="control-card" id="styleControls">
+			<h3>Style Settings</h3>
+			<div class="control-group">
+				<label for="targetSelector">Target Selector (optional):</label>
+				<input type="text" id="targetSelector" placeholder=".your-element, #yourElement" />
+			</div>
 
-    <div class="control-group">
-      <label for="feeTier">Fee Tier:</label>
-      <select id="feeTier">
-        <option value="035">3.5% (Default)</option>
-        <option value="040">4.0%</option>
-        <option value="045">4.5%</option>
-      </select>
-    </div>
-  </div>
+			<div class="control-grid">
+				<!-- Font Weight -->
+				<div class="control-group">
+					<label for="fontWeight">Font Weight</label>
+					<input type="range" id="fontWeight" min="100" max="900" step="100" value="400" data-type="font-weight" />
+					<div class="help-text" id="font-weight">100-900</div>
+				</div>
+			</div>
+			<div class="control-grid">
+				<!-- Font Size -->
+				<div class="control-group">
+					<label for="fontSize">Font Size</label>
+					<input type="range" id="fontSize" min="10" max="24" step="1" value="16" data-type="font-size" data-unit="px" />
+					<div class="help-text" id="font-size">16</div>
+				</div>
+			</div>
+		</div>
+		<div class="control-card">
+			<h3>Current Page</h3>
+			<div class="url-info"><strong>URL:</strong> <span id="currentUrl">Loading...</span></div>
+		</div>
 
-  <div class="control-card">
-    <h3>Current Page</h3>
-    <div class="url-info">
-      <strong>URL:</strong> <span id="currentUrl">Loading...</span>
-    </div>
-  </div>
-
-  <script src="sidepanel.js"></script>
-</body>
-
+		<script src="sidepanel.js"></script>
+	</body>
 </html>
