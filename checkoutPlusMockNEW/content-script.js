@@ -1,5 +1,4 @@
-console.log("Content script loaded");
-
+console.log("Content script loaded v1.2");
 let productHTML = `
 <div role="row" class="_6zbcq51k _6zbcq51j _1fragem3c _1fragem2x _1fragemn2 _6zbcq51n _6zbcq512 _6zbcq51m">
   <div aria-hidden="true" class="_6zbcq520 _6zbcq51z _1fragem3c _1fragemp7" style="--_6zbcq54: 3.2rem;">
@@ -112,7 +111,6 @@ let checkoutWidgetHTML = `
   </div>
 </div>
 `;
-
 console.log("Checkout+ Content Script Loaded Successfully!");
 console.log("Current URL:", window.location.href);
 console.log("Content script is ready to receive messages");
@@ -125,22 +123,20 @@ let tierRate = "035";
 function getFeeTiers(rate) {
 	switch (rate) {
 		case "035":
-			return feeTiers035;
+			return 0.035;
+		case "040":
+			return 0.04;
+		case "045":
+			return 0.045;
 		default:
-			console.warn(`Unknown tier rate: ${rate}. Defaulting to 035.`);
-			return feeTiers035;
+			console.log(`Unknown tier rate: ${rate}. Defaulting to 035.`);
+			return 0.035;
 	}
 }
 
 function calculateFee(cents) {
-	const feeTiers = getFeeTiers(tierRate);
-	console.log("Fee tiers:", feeTiers);
-
-	for (const tier of feeTiers) {
-		if (cents <= tier.max * 100) {
-			return tier.fee * 100;
-		}
-	}
+	const feeTier = getFeeTiers(tierRate);
+	return cents * feeTier;
 }
 
 function createCheckoutPlus(button, fee) {
@@ -583,6 +579,7 @@ function updateCheckoutButton(totalPrice) {
 		".al_sidecart .bottom-0 button",
 		"button.CartDrawer-checkoutButton",
 		"div.rebuy-cart__flyout-actions button.rebuy-button",
+		"[data-type='.guest-checkout']",
 	];
 
 	const buttons = document.querySelectorAll(buttonSelectors.join(", "));
@@ -601,7 +598,7 @@ function updateCheckoutButton(totalPrice) {
 }
 
 function createCheckBoxWidget(section) {
-	if (document.getElementById(`savedby-checkbox-widget-${section}`)) return;
+	if (document.querySelector("savedby-checkout-plus")) return;
 	console.log("Creating checkbox widget...");
 	const widget = document.createElement("div");
 	widget.id = "savedby-checkbox-widget";
@@ -656,7 +653,7 @@ function injectLabel() {
 }
 
 // Update settings from sidepanel
-function updateSettings(settings) {
+function updateSetting(settings) {
 	console.log("Updating settings:", settings);
 
 	// Update disclaimer text if provided
@@ -666,7 +663,6 @@ function updateSettings(settings) {
 			disclaimer.textContent = settings.disclaimerText;
 		});
 	}
-
 	// Update fee tier if provided
 	if (settings.feeTier) {
 		tierRate = settings.feeTier;
@@ -755,7 +751,9 @@ function updateSettings(settings) {
 // Listen for messages from the sidepanel
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	console.log("Content script received message:", message);
-
+	if (message.target != "content-script.js") {
+		return;
+	}
 	switch (message.action) {
 		case "injectCheckout":
 			injectLabel();
@@ -763,7 +761,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 			break;
 
 		case "updateSettings":
-			updateSettings(message.settings);
+			updateSetting(message.settings);
 			sendResponse({ success: true });
 			break;
 
@@ -775,169 +773,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		default:
 			sendResponse({ success: false, error: "Unknown action" });
 	}
-
-	return true; // Keep message channel open for async response
 });
-
-const feeTiers035 = [
-	{
-		max: 70,
-		fee: 1.67,
-	},
-	{
-		max: 100,
-		fee: 2.97,
-	},
-	{
-		max: 150,
-		fee: 4.47,
-	},
-	{
-		max: 200,
-		fee: 5.97,
-	},
-	{
-		max: 250,
-		fee: 7.97,
-	},
-	{
-		max: 300,
-		fee: 9.47,
-	},
-	{
-		max: 350,
-		fee: 11.47,
-	},
-	{
-		max: 400,
-		fee: 12.97,
-	},
-	{
-		max: 450,
-		fee: 14.97,
-	},
-	{
-		max: 500,
-		fee: 16.47,
-	},
-	{
-		max: 550,
-		fee: 18.47,
-	},
-	{
-		max: 600,
-		fee: 19.97,
-	},
-	{
-		max: 650,
-		fee: 21.97,
-	},
-	{
-		max: 700,
-		fee: 23.47,
-	},
-	{
-		max: 750,
-		fee: 25.47,
-	},
-	{
-		max: 800,
-		fee: 26.97,
-	},
-	{
-		max: 850,
-		fee: 28.97,
-	},
-	{
-		max: 900,
-		fee: 30.47,
-	},
-	{
-		max: 950,
-		fee: 32.47,
-	},
-	{
-		max: 1000,
-		fee: 33.97,
-	},
-	{
-		max: 1050,
-		fee: 35.97,
-	},
-	{
-		max: 1100,
-		fee: 37.47,
-	},
-	{
-		max: 1150,
-		fee: 39.47,
-	},
-	{
-		max: 1200,
-		fee: 40.97,
-	},
-	{
-		max: 1250,
-		fee: 42.47,
-	},
-	{
-		max: 1300,
-		fee: 43.97,
-	},
-	{
-		max: 1350,
-		fee: 45.97,
-	},
-	{
-		max: 1400,
-		fee: 47.47,
-	},
-	{
-		max: 1450,
-		fee: 49.47,
-	},
-	{
-		max: 1500,
-		fee: 50.97,
-	},
-	{
-		max: 1550,
-		fee: 52.97,
-	},
-	{
-		max: 1600,
-		fee: 54.47,
-	},
-	{
-		max: 1650,
-		fee: 56.47,
-	},
-	{
-		max: 1700,
-		fee: 57.97,
-	},
-	{
-		max: 1750,
-		fee: 59.97,
-	},
-	{
-		max: 1800,
-		fee: 61.47,
-	},
-	{
-		max: 1850,
-		fee: 63.47,
-	},
-	{
-		max: 1900,
-		fee: 64.97,
-	},
-	{
-		max: 1950,
-		fee: 66.97,
-	},
-	{
-		max: 2000,
-		fee: 68.47,
-	},
-];

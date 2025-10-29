@@ -1,12 +1,16 @@
 let currentTab = null;
 let currentDomain = null;
 let previousDomain = null;
+let injected = false;
+let pickerInjected = false;
 
 // Check current tab and handle domain changes
 function checkCurrentTab() {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-		if (tabs[0]) {
+		if (!tabs[0]) return;
+		try {
 			currentTab = tabs[0];
+			console.log(currentTab);
 			document.getElementById("currentUrl").textContent = tabs[0].url;
 
 			// Check for domain change and reset if needed
@@ -24,6 +28,9 @@ function checkCurrentTab() {
 			} else {
 				loadSettings();
 			}
+			//TODO: probably display this to the user
+		} catch (e) {
+			console.log("Invalid URL: ", e);
 		}
 	});
 }
@@ -47,6 +54,9 @@ function init() {
 		control.addEventListener("input", updateStyles);
 	});
 
+	//selector listeners
+	document.getElementById("getSelector").addEventListener("click", startSelection);
+
 	// Listen for tab changes
 	chrome.tabs.onActivated.addListener((activeInfo) => {
 		console.log("Tab activated:", activeInfo.tabId);
@@ -64,7 +74,8 @@ function init() {
 
 // Inject Checkout+ protection
 function injectCheckout() {
-	if (!currentTab) return;
+	console.log("Script", injected);
+	if (!currentTab || injected) return;
 
 	// First, try to inject the content script manually
 	chrome.scripting.executeScript(
@@ -81,16 +92,19 @@ function injectCheckout() {
 
 			// Wait a moment for the script to load, then send message
 			setTimeout(() => {
-				chrome.tabs.sendMessage(currentTab.id, { action: "injectCheckout" }, function (response) {
+				chrome.tabs.sendMessage(currentTab.id, { action: "injectCheckout", target: "content-script.js" }, function (response) {
 					console.log("Response:", response);
 					console.log("Last error:", chrome.runtime.lastError);
 					if (chrome.runtime.lastError) {
 						console.error("Error: Could not inject protection", chrome.runtime.lastError);
 						updateStatus("Error: Could not inject protection", "error");
+						injected = false;
 					} else if (response && response.success) {
 						updateStatus("Checkout+ protection injected successfully!", "success");
+						injected = true;
 					} else {
 						updateStatus("Injection completed with warnings", "warning");
+						injected = true;
 					}
 				});
 			}, 100);
@@ -110,7 +124,7 @@ function resetForNewStore() {
 
 	// Clear any existing content script state
 	if (currentTab) {
-		chrome.tabs.sendMessage(currentTab.id, { action: "resetSettings" });
+		chrome.tabs.sendMessage(currentTab.id, { action: "resetSettings", target: "content-script.js" });
 	}
 
 	// Load fresh settings for this store
@@ -152,6 +166,7 @@ function updateSettings(settings = null) {
 		chrome.tabs.sendMessage(currentTab.id, {
 			action: "updateSettings",
 			settings: settings,
+			target: "content-script.js",
 		});
 	}
 }
@@ -197,7 +212,7 @@ function updateStyles(e) {
 	const unit = e.target.dataset?.unit;
 	document.getElementById(type).textContent = value;
 	chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-		chrome.tabs.sendMessage(tab.id, { target: "content-styles", action: "updateStyle", arg: { type: type, value: value, unit: unit } }, (res) => {
+		chrome.tabs.sendMessage(tab.id, { target: "content-styles.js", action: "updateStyle", arg: { type: type, value: value, unit: unit } }, (res) => {
 			if (chrome.runtime.lastError) {
 				console.error("Error:", chrome.runtime.lastError.message);
 				return;
@@ -206,3 +221,33 @@ function updateStyles(e) {
 		});
 	});
 }
+
+//injector func
+function startSelection() {
+	if (pickerInjected) {
+		chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+			chrome.tabs.sendMessage(tab.id, { target: "content-picker.js", action: "startPicker" });
+		});
+	} else {
+		chrome.scripting.executeScript(
+			{
+				target: { tabId: currentTab.id },
+				files: ["content-picker.js"],
+			},
+			() => {
+				if (!chrome.runtime.lastError) {
+					pickerInjected = true;
+					const button = document.getElementById("getSelector");
+					button.textContent = "Start Selecting";
+					button.classList.remove("secondary");
+				}
+			}
+		);
+	}
+}
+
+chrome.runtime.onMessage.addListener((msg) => {
+	if (msg.action === "sendSelectorData") {
+		document.getElementById("currentSelector").textContent = msg.data.value == "" ? "No Button Found" : msg.data.value;
+	}
+});

@@ -1,5 +1,8 @@
 // content-styles.js
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+	if (msg.target != "content-styles.js") {
+		return;
+	}
 	if (msg.action === "updateStyle") {
 		// Optionally take args if passed
 		const arg = msg.arg || null;
@@ -19,5 +22,5 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 		sendResponse({ btn, arg });
 	}
-	return true;
+	return;
 });

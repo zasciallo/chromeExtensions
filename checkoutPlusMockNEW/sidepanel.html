@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Checkout+ Control Panel</title>
+		<title>Checkout+ Control Panel v0.2</title>
 		<style>
 			body {
 				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -141,13 +141,19 @@
 	<body>
 		<div class="header">
 			<h1>Checkout+ Control</h1>
-			<p>Universal E-commerce Package Protection</p>
+			<p>SavedBy Checkout+ Mockup Builder</p>
+			<a href="https://savedby.atlassian.net/wiki/spaces/~712020efae494cd3ee4e3ca9acdaccebacf70a/pages/208109573/Checkout+Mockup+Extension?atlOrigin=eyJpIjoiMTBiZjFiMjYwN2ZlNGIxYzg1MmQ2OWViZTIzMzE0MmUiLCJwIjoiYyJ9" target="_blank" rel="noopener noreferrer"> Not sure how to get started? Check the docs.</a>
 		</div>
 
-		<div id="status" class="status">Ready to inject Checkout+</div>
-
+		<h3>Injection Controls</h3>
+		<div class="control-card" id="pickerCard">
+			<h3>Custom Selector</h3>
+			<div class="info-text">Manually choose where the widget should attach by clicking on the page.</div>
+			<button id="getSelector" class="button secondary" style="margin-bottom: 30px">Initialize Selector</button>
+			<div class="url-info"><strong>Selector: </strong> <span id="currentSelector">.example.child-class</span></div>
+		</div>
 		<div class="control-card">
-			<h3>Injection Controls</h3>
+			<div id="status" class="status">Ready to inject Checkout+</div>
 
 			<div class="control-group">
 				<button id="injectBtn" class="button">Inject Checkout+ Protection</button>
@@ -200,10 +206,15 @@
 		<div class="control-card" id="styleControls">
 			<h3>Style Settings</h3>
 			<div class="control-group">
-				<label for="targetSelector">Target Selector (optional):</label>
-				<input type="text" id="targetSelector" placeholder=".your-element, #yourElement" />
+				<label for="targetSelector">Target Element:</label>
+				<select id="targetElemet" name="Target Element">
+				<option value="">Continue Without Protection</option>
+				<option value="">Checkout+</option>
+				<option value="">Disclaimer</option>
+				</select>
 			</div>
-
+			
+			</select>
 			<div class="control-grid">
 				<!-- Font Weight -->
 				<div class="control-group">
@@ -218,6 +229,14 @@
 					<label for="fontSize">Font Size</label>
 					<input type="range" id="fontSize" min="10" max="24" step="1" value="16" data-type="font-size" data-unit="px" />
 					<div class="help-text" id="font-size">16</div>
+				</div>
+			</div>
+			<div class="control-grid">
+				<!-- Font Size -->
+				<div class="control-group">
+					<label for="fontSize">Letter Spacing</label>
+					<input type="range" id="letterSpacing" min="0" max="2" step=".1" value=".5" data-type="letter-spacing" data-unit="px" />
+					<div class="help-text" id="letter-spacing">0.5</div>
 				</div>
 			</div>
 		</div>

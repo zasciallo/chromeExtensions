@@ -1,7 +1,7 @@
 {
 	"name": "Checkout+ Button Injector",
 	"manifest_version": 3,
-	"version": "1.0",
+	"version": "0.2",
 	"description": "Replaces the Shopify checkout button with a Checkout+ widget.",
 	"action": {
 		"default_title": "Open Checkout Plus"
@@ -17,14 +17,8 @@
 	"content_scripts": [
 		{
 			"matches": ["https://*/*", "http://*/*"],
-			"js": ["content-script.js", "content-styles.js"],
+			"js": ["content-script.js", "sidepanel.js", "content-styles.js", "content-picker.js"],
 			"run_at": "document_end"
-		}
-	],
-	"web_accessible_resources": [
-		{
-			"resources": ["content-script.js", "sidepanel.js", "content-styles.js"],
-			"matches": ["https://*/*", "http://*/*"]
 		}
 	]
 }
