@@ -3,6 +3,7 @@ let currentDomain = null;
 let previousDomain = null;
 let injected = false;
 let pickerInjected = false;
+let customSelectors = [];
 
 // Check current tab and handle domain changes
 function checkCurrentTab() {
@@ -92,7 +93,7 @@ function injectCheckout() {
 
 			// Wait a moment for the script to load, then send message
 			setTimeout(() => {
-				chrome.tabs.sendMessage(currentTab.id, { action: "injectCheckout", target: "content-script.js" }, function (response) {
+				chrome.tabs.sendMessage(currentTab.id, { action: "injectCheckout", target: "content-script.js", selectors: customSelectors }, function (response) {
 					console.log("Response:", response);
 					console.log("Last error:", chrome.runtime.lastError);
 					if (chrome.runtime.lastError) {
@@ -247,7 +248,15 @@ function startSelection() {
 }
 
 chrome.runtime.onMessage.addListener((msg) => {
-	if (msg.action === "sendSelectorData") {
-		document.getElementById("currentSelector").textContent = msg.data.value == "" ? "No Button Found" : msg.data.value;
+	if (msg.action !== "sendSelectorData") {
+		return;
+	}
+	const textField = document.getElementById("currentSelector");
+	if (msg.data.value == "") {
+		textField.textContent = "No Button Found";
+	} else {
+		textField.textContent = msg.data.value;
+		customSelectors.push(msg.data.value);
+		customSelectors = [...new Set(customSelectors)];
 	}
 });

@@ -53,7 +53,7 @@ function parseSelector(element) {
 	if (!element) {
 		return "";
 	} else {
-		return element.className.replace(/ /g, ".");
+		return "." + element.className.replace(/ /g, ".");
 	}
 }
 

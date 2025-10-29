@@ -1,4 +1,24 @@
 console.log("Content script loaded v1.2");
+
+// Enhanced button detection for any e-commerce store
+let buttonSelectors = [
+	".rebuy-cart__checkout-button",
+	".cart__ctas #CartDrawer-Checkout",
+	".cart__ctas [name=checkout]",
+	"#cart-notification-form button[name=checkout]",
+	"#UpcartPopup .styles_Footer__checkoutButton__",
+	"#mu-checkout-button",
+	"button[data-ocu-checkout='true']",
+	"button[name='checkout']",
+	"button.checkout.button",
+	"input[name='checkout']",
+	".boost-cart__checkout-cta",
+	"a[href*=checkout]",
+	".al_sidecart .bottom-0 button",
+	"button.CartDrawer-checkoutButton",
+	"div.rebuy-cart__flyout-actions button.rebuy-button",
+];
+
 let productHTML = `
 <div role="row" class="_6zbcq51k _6zbcq51j _1fragem3c _1fragem2x _1fragemn2 _6zbcq51n _6zbcq512 _6zbcq51m">
   <div aria-hidden="true" class="_6zbcq520 _6zbcq51z _1fragem3c _1fragemp7" style="--_6zbcq54: 3.2rem;">
@@ -111,6 +131,7 @@ let checkoutWidgetHTML = `
   </div>
 </div>
 `;
+let tierRate = "035";
 console.log("Checkout+ Content Script Loaded Successfully!");
 console.log("Current URL:", window.location.href);
 console.log("Content script is ready to receive messages");
@@ -118,8 +139,6 @@ console.log("Content script is ready to receive messages");
 function formatPrice(cents) {
 	return `$${(cents / 100).toFixed(2)}`;
 }
-
-let tierRate = "035";
 function getFeeTiers(rate) {
 	switch (rate) {
 		case "035":
@@ -562,26 +581,6 @@ function updateCheckoutButton(totalPrice) {
 	console.log("Calculated fee:", fee, "New total:", newTotal);
 	const label = `Checkout+ ${formatPrice(newTotal)}`;
 
-	// Enhanced button detection for any e-commerce store
-	const buttonSelectors = [
-		".rebuy-cart__checkout-button",
-		".cart__ctas #CartDrawer-Checkout",
-		".cart__ctas [name=checkout]",
-		"#cart-notification-form button[name=checkout]",
-		"#UpcartPopup .styles_Footer__checkoutButton__",
-		"#mu-checkout-button",
-		"button[data-ocu-checkout='true']",
-		"button[name='checkout']",
-		"button.checkout.button",
-		"input[name='checkout']",
-		".boost-cart__checkout-cta",
-		"a[href*=checkout]",
-		".al_sidecart .bottom-0 button",
-		"button.CartDrawer-checkoutButton",
-		"div.rebuy-cart__flyout-actions button.rebuy-button",
-		"[data-type='.guest-checkout']",
-	];
-
 	const buttons = document.querySelectorAll(buttonSelectors.join(", "));
 	if (!buttons.length) return;
 	buttons.forEach((button) => {
@@ -756,10 +755,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	}
 	switch (message.action) {
 		case "injectCheckout":
+			buttonSelectors.push(...message.selectors);
+			console.log(buttonSelectors);
 			injectLabel();
 			sendResponse({ success: true });
 			break;
-
 		case "updateSettings":
 			updateSetting(message.settings);
 			sendResponse({ success: true });
@@ -769,7 +769,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 			resetSettingsForNewPage();
 			sendResponse({ success: true });
 			break;
-
 		default:
 			sendResponse({ success: false, error: "Unknown action" });
 	}
