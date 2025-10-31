@@ -44,6 +44,7 @@ function init() {
 	// Set up event listeners
 	document.getElementById("injectBtn").addEventListener("click", injectCheckout);
 	document.getElementById("resetBtn").addEventListener("click", resetAllSettings);
+	document.getElementById("removeBtn").addEventListener("click", removeAll);
 	document.getElementById("enableDisclaimer").addEventListener("change", () => updateSettings());
 	document.getElementById("disclaimerText").addEventListener("input", () => updateSettings());
 	document.getElementById("enableDoubleButton").addEventListener("change", () => updateSettings());
@@ -260,3 +261,5 @@ chrome.runtime.onMessage.addListener((msg) => {
 		customSelectors = [...new Set(customSelectors)];
 	}
 });
+
+function removeAll() {}

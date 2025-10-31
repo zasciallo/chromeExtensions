@@ -52,9 +52,15 @@ function parseSelector(element) {
 	element = getButton(element);
 	if (!element) {
 		return "";
-	} else {
-		return "." + element.className.replace(/ /g, ".");
 	}
+	//see if multiple came back
+	let selection = "." + element.className.replace(/ /g, ".");
+	if (document.querySelectorAll(selection).length > 1) {
+		if (element?.dataset?.type) {
+			selection = `[data-type="${element.dataset.type}"]${selection}`;
+		}
+	}
+	return selection;
 }
 
 function getButton(element) {
