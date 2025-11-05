@@ -140,8 +140,8 @@
 
 	<body>
 		<div class="header">
-			<h1>Checkout+ Control</h1>
-			<p>SavedBy Checkout+ Mockup Builder</p>
+			<h1>Checkout+</h1>
+			<p>Control Panel</p>
 			<a href="https://savedby.atlassian.net/wiki/spaces/~712020efae494cd3ee4e3ca9acdaccebacf70a/pages/208109573/Checkout+Mockup+Extension?atlOrigin=eyJpIjoiMTBiZjFiMjYwN2ZlNGIxYzg1MmQ2OWViZTIzMzE0MmUiLCJwIjoiYyJ9" target="_blank" rel="noopener noreferrer"> Not sure how to get started? Check the docs.</a>
 		</div>
 
@@ -244,7 +244,24 @@
 			<h3>Current Page</h3>
 			<div class="url-info"><strong>URL:</strong> <span id="currentUrl">Loading...</span></div>
 		</div>
+		<div class="control-card">
+			<h3>Developer Settings</h3>
+			<p>Scripting Tools</p>
+			<div class="control-group">
+				<div class="checkbox-label">
+					<input type="checkbox" id="SFW"/>
+					<label for="SFW">Block SFW</label>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="checkbox-label">
+					<input type="checkbox" id="HLW"/>
+					<label for="HLW">Block HLW</label>
+				</div>
+			</div>
+		</div>
 
 		<script src="sidepanel.js"></script>
+		<script src="devTools/devSettings.js"></script>
 	</body>
 </html>

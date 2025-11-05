@@ -1,7 +1,7 @@
 {
-	"name": "Checkout+ Button Injector",
+	"name": "Checkout+ Control",
 	"manifest_version": 3,
-	"version": "0.3",
+	"version": "0.4",
 	"description": "Replaces the Shopify checkout button with a Checkout+ widget.",
 	"action": {
 		"default_title": "Open Checkout Plus"
@@ -12,8 +12,17 @@
 	"background": {
 		"service_worker": "service-worker.js"
 	},
-	"permissions": ["sidePanel", "activeTab", "tabs", "storage", "scripting"],
+	"permissions": ["sidePanel", "activeTab", "tabs", "storage", "scripting", "declarativeNetRequest"],
 	"host_permissions": ["https://*/*", "http://*/*"],
+	"declarative_net_request": {
+		"rule_resources": [
+			{
+				"id": "ruleset_1",
+				"enabled": true,
+				"path": "rules.json"
+			}
+		]
+	},
 	"content_scripts": [
 		{
 			"matches": ["https://*/*", "http://*/*"],

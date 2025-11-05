@@ -64,7 +64,7 @@ function parseSelector(element) {
 }
 
 function getButton(element) {
-	//searh for elements the user likely wanted]
+	//search for elements the user likely wanted]
 	const button = element.querySelector("a, button");
 	if (["BUTTON", "A"].includes(element.tagName)) return element;
 	if (button) return button;

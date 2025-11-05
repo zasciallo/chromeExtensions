@@ -560,6 +560,8 @@ function createCheckoutPlus(button, fee) {
 	}
 	widget.querySelector("div.sb__info-container").style.borderRadius = window.getComputedStyle(button).borderRadius || "4px";
 	button.replaceWith(widget);
+
+	document.querySelector("[slot='savedby-checkout-button']").style.minWidth = "calc(100% - 2rem)";
 	console.log("Widget created and button replaced:", widget);
 }
 
@@ -576,7 +578,7 @@ function replaceTextInNode(root, newText) {
 
 function updateCheckoutButton(totalPrice) {
 	console.log("Updating checkout button with cart data:", totalPrice);
-	const fee = calculateFee(totalPrice);
+	const fee = ~~calculateFee(totalPrice); //--> truncate decimal points
 	const newTotal = totalPrice + fee;
 	console.log("Calculated fee:", fee, "New total:", newTotal);
 	const label = `Checkout+ ${formatPrice(newTotal)}`;
