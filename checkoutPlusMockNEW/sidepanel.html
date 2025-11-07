@@ -1,141 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Checkout+ Control Panel v0.2</title>
-		<style>
-			body {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-				margin: 0;
-				padding: 20px;
-				background: #f8f9fa;
-				color: #333;
-			}
-
-			.header {
-				text-align: center;
-				margin-bottom: 30px;
-				padding-bottom: 20px;
-				border-bottom: 2px solid #e9ecef;
-			}
-
-			.header h1 {
-				margin: 0;
-				color: #2c3e50;
-				font-size: 24px;
-			}
-
-			.header p {
-				margin: 8px 0 0 0;
-				color: #6c757d;
-				font-size: 14px;
-			}
-
-			.control-card {
-				background: white;
-				border-radius: 8px;
-				padding: 20px;
-				margin-bottom: 15px;
-				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-				border-left: 4px solid #007bff;
-			}
-
-			.control-card h3 {
-				margin: 0 0 15px 0;
-				color: #2c3e50;
-				font-size: 16px;
-			}
-
-			.control-group {
-				margin-bottom: 15px;
-			}
-
-			.control-group label {
-				display: block;
-				margin-bottom: 5px;
-				font-weight: 500;
-				color: #495057;
-			}
-
-			.control-group input,
-			.control-group select {
-				width: 100%;
-				padding: 8px 12px;
-				border: 1px solid #ced4da;
-				border-radius: 4px;
-				font-size: 14px;
-				box-sizing: border-box;
-			}
-
-			.control-group input[type="checkbox"] {
-				width: auto;
-				margin-right: 8px;
-			}
-
-			.checkbox-label {
-				display: flex;
-				align-items: center;
-				margin-bottom: 10px;
-			}
-
-			.button {
-				background: #007bff;
-				color: white;
-				border: none;
-				padding: 10px 20px;
-				border-radius: 6px;
-				cursor: pointer;
-				font-size: 14px;
-				width: 100%;
-				margin-top: 10px;
-			}
-
-			.button:hover {
-				background: #0056b3;
-			}
-
-			.button.secondary {
-				background: #6c757d;
-			}
-
-			.button.secondary:hover {
-				background: #545b62;
-			}
-
-			.status {
-				text-align: center;
-				padding: 10px;
-				background: #d4edda;
-				color: #155724;
-				border-radius: 6px;
-				margin-bottom: 20px;
-				font-size: 14px;
-			}
-
-			.status.error {
-				background: #f8d7da;
-				color: #721c24;
-			}
-
-			.status.warning {
-				background: #fff3cd;
-				color: #856404;
-			}
-
-			.info-text {
-				color: #6c757d;
-				font-size: 12px;
-				margin-top: 5px;
-			}
-
-			.url-info {
-				background: #e9ecef;
-				padding: 10px;
-				border-radius: 4px;
-				font-size: 12px;
-				color: #6c757d;
-				word-break: break-all;
-			}
-		</style>
+		<link rel="stylesheet" href="styles/index.css">
+		<title>Checkout+ Control Panel v0.4</title>
 	</head>
 
 	<body>
@@ -144,7 +11,11 @@
 			<p>Control Panel</p>
 			<a href="https://savedby.atlassian.net/wiki/spaces/~712020efae494cd3ee4e3ca9acdaccebacf70a/pages/208109573/Checkout+Mockup+Extension?atlOrigin=eyJpIjoiMTBiZjFiMjYwN2ZlNGIxYzg1MmQ2OWViZTIzMzE0MmUiLCJwIjoiYyJ9" target="_blank" rel="noopener noreferrer"> Not sure how to get started? Check the docs.</a>
 		</div>
-
+		<div class="checkbox-wrapper-2">
+			<input type="checkbox" class="sc-gJwTLC ikxBAC" id="toggleDev">
+			<label for="toggleDev" style="margin-top: 3px;">Developer Mode</label>
+		</div>
+		<div id="mockUpTools">
 		<h3>Injection Controls</h3>
 		<div class="control-card" id="pickerCard">
 			<h3>Custom Selector</h3>
@@ -240,30 +111,51 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div id="devTools" class="inactive">
+		<h3>Developer Tools</h3>
 		<div class="control-card">
 			<h3>Current Page</h3>
 			<div class="url-info"><strong>URL:</strong> <span id="currentUrl">Loading...</span></div>
 		</div>
-		<div class="control-card">
-			<h3>Developer Settings</h3>
-			<p>Scripting Tools</p>
-			<div id="scriptingToggles">
-				<div class="control-group">
-					<div class="checkbox-label">
-						<input type="checkbox" id="SFW"/>
-						<label for="SFW">Block SFW</label>
+			<div class="control-card">
+				<h3>Scripting Tools</h3>
+				<p>Block Scripts</p>
+				<div id="scriptingToggles">
+					<div class="control-group">
+						<div class="checkbox-label">
+							<input type="checkbox" id="SFW"/>
+							<label for="SFW">Block SFW Current (Import Latest)</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="checkbox-label">
+							<input type="checkbox" id="HLW"/>
+							<label for="HLW">Block HLW</label>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="checkbox-label">
+							<input type="checkbox" id="OldSFW"/>
+							<label for="OldSFW">Block Old SWF (Check Box Style)</label>
+						</div>
 					</div>
 				</div>
+				<p style="margin-bottom: 0;">Inject Scripts</p>
 				<div class="control-group">
-					<div class="checkbox-label">
-						<input type="checkbox" id="HLW"/>
-						<label for="HLW">Block HLW</label>
-					</div>
+					<button id="injectScriptBtn" class="button">Inject</button>
+					<div class="info-text">Injects custom.js to active tab</div>
+					<button id="editBtn" class="button">Edit In VS Code</button>
 				</div>
+				<div class="control-group">
+				<label for="disclaimerText">Root Path:</label>
+				<input type="text" id="rootPath" placeholder="Abs path to /checkoutPlusMockNEW" value="" />
+			</div>
 			</div>
 		</div>
 
 		<script src="sidepanel.js"></script>
 		<script src="devTools/devSettings.js"></script>
+		<script src="devTools/scriptInjection.js"></script>
 	</body>
 </html>

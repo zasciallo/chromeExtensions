@@ -1,0 +1,202 @@
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	margin: 0;
+	padding: 20px;
+	background: #f8f9fa;
+	color: #333;
+}
+
+.header {
+	text-align: center;
+	margin-bottom: 30px;
+	padding-bottom: 20px;
+	border-bottom: 2px solid #e9ecef;
+}
+
+.header h1 {
+	margin: 0;
+	color: #2c3e50;
+	font-size: 24px;
+}
+
+.header p {
+	margin: 8px 0 0 0;
+	color: #6c757d;
+	font-size: 14px;
+}
+
+.control-card {
+	background: white;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 15px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-left: 4px solid #007bff;
+}
+
+.control-card h3 {
+	margin: 0 0 15px 0;
+	color: #2c3e50;
+	font-size: 16px;
+}
+
+.control-group {
+	margin-bottom: 15px;
+}
+
+.control-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: 500;
+	color: #495057;
+}
+
+.control-group input,
+.control-group select {
+	width: 100%;
+	padding: 8px 12px;
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+.control-group input[type="checkbox"] {
+	width: auto;
+	margin-right: 8px;
+}
+
+.checkbox-label {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.button {
+	background: #007bff;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 14px;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.button:hover {
+	background: #0056b3;
+}
+
+.button.secondary {
+	background: #6c757d;
+}
+
+.button.secondary:hover {
+	background: #545b62;
+}
+
+.status {
+	text-align: center;
+	padding: 10px;
+	background: #d4edda;
+	color: #155724;
+	border-radius: 6px;
+	margin-bottom: 20px;
+	font-size: 14px;
+}
+
+.status.error {
+	background: #f8d7da;
+	color: #721c24;
+}
+
+.status.warning {
+	background: #fff3cd;
+	color: #856404;
+}
+
+.info-text {
+	color: #6c757d;
+	font-size: 12px;
+	margin-top: 5px;
+}
+
+.url-info {
+	background: #e9ecef;
+	padding: 10px;
+	border-radius: 4px;
+	font-size: 12px;
+	color: #6c757d;
+	word-break: break-all;
+}
+.inactive {
+	display: none !important;
+}
+.checkbox-wrapper-2 {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+}
+.checkbox-wrapper-2 .ikxBAC {
+	appearance: none;
+	background-color: #dfe1e4;
+	border-radius: 72px;
+	border-style: none;
+	flex-shrink: 0;
+	height: 20px;
+	margin: 0;
+	position: relative;
+	width: 30px;
+}
+
+.checkbox-wrapper-2 .ikxBAC::before {
+	bottom: -6px;
+	content: "";
+	left: -6px;
+	position: absolute;
+	right: -6px;
+	top: -6px;
+}
+
+.checkbox-wrapper-2 .ikxBAC,
+.checkbox-wrapper-2 .ikxBAC::after {
+	transition: all 100ms ease-out;
+}
+
+.checkbox-wrapper-2 .ikxBAC::after {
+	background-color: #fff;
+	border-radius: 50%;
+	content: "";
+	height: 14px;
+	left: 3px;
+	position: absolute;
+	top: 3px;
+	width: 14px;
+}
+
+.checkbox-wrapper-2 input[type="checkbox"] {
+	cursor: default;
+}
+
+.checkbox-wrapper-2 .ikxBAC:hover {
+	background-color: #c9cbcd;
+	transition-duration: 0s;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked {
+	background-color: #6e79d6;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked::after {
+	background-color: #fff;
+	left: 13px;
+}
+
+.checkbox-wrapper-2 :focus:not(.focus-visible) {
+	outline: 0;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked:hover {
+	background-color: #535db3;
+}
