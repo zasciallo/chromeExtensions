@@ -72,6 +72,10 @@ body {
 	margin-bottom: 10px;
 }
 
+input[type="checkbox"] {
+	accent-color: #007bff;
+}
+
 .button {
 	background: #007bff;
 	color: white;
@@ -185,7 +189,7 @@ body {
 }
 
 .checkbox-wrapper-2 .ikxBAC:checked {
-	background-color: #6e79d6;
+	background-color: #0056b3;
 }
 
 .checkbox-wrapper-2 .ikxBAC:checked::after {

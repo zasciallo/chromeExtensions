@@ -22,8 +22,29 @@ async function addBlockRuleForUrl(urlPattern, ruleId, checked) {
 	};
 
 	console.log("[addBlockRuleForUrl] Called with:", { urlPattern, ruleId, checked, rule });
-
-	await toggleRule(rule, checked);
+	//check for csp rule
+	if (!ruleId == 8) {
+		await toggleRule(rule, checked);
+	} else {
+		const cspRule = {
+			id: ruleId,
+			priority: 1,
+			action: {
+				type: "modifyHeaders",
+				responseHeaders: [
+					{
+						header: "Content-Security-Policy",
+						operation: "remove",
+					},
+				],
+			},
+			condition: {
+				urlFilter: "*",
+				resourceTypes: ["main_frame"],
+			},
+		};
+		await toggleRule(cspRule, checked);
+	}
 }
 
 async function toggleRule(rule, checked) {
