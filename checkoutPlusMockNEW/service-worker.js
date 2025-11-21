@@ -23,7 +23,7 @@ async function addBlockRuleForUrl(urlPattern, ruleId, checked) {
 
 	console.log("[addBlockRuleForUrl] Called with:", { urlPattern, ruleId, checked, rule });
 	//check for csp rule
-	if (!ruleId == 8) {
+	if (ruleId != 4) {
 		await toggleRule(rule, checked);
 	} else {
 		const cspRule = {
