@@ -752,9 +752,8 @@ function updateSetting(settings) {
 // Listen for messages from the sidepanel
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	console.log("Content script received message:", message);
-	if (message.target != "content-script.js") {
-		return;
-	}
+	if (message.target != "content-script.js") return;
+	console.log(message.action);
 	switch (message.action) {
 		case "injectCheckout":
 			buttonSelectors.push(...message.selectors);
@@ -770,6 +769,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 		case "resetSettings":
 			resetSettingsForNewPage();
 			sendResponse({ success: true });
+			break;
+		case "removeCheckoutPlus":
+			const widgets = document.querySelectorAll("savedby-checkout-plus");
+			[...widgets].forEach((element) => {
+				const oldBtn = document.querySelector('[slot="savedby-checkout-button"]').cloneNode(true);
+				element.parentNode.append(oldBtn);
+				oldBtn.textContent = "CHECKOUT";
+				element.remove();
+			});
 			break;
 		default:
 			sendResponse({ success: false, error: "Unknown action" });

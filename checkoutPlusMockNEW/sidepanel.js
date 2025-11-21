@@ -77,7 +77,8 @@ function init() {
 // Inject Checkout+ protection
 function injectCheckout() {
 	console.log("Script", injected);
-	if (!currentTab || injected) return;
+	//TODO need more robust checking
+	// if (!currentTab || injected) return;
 
 	// First, try to inject the content script manually
 	chrome.scripting.executeScript(
@@ -262,4 +263,7 @@ chrome.runtime.onMessage.addListener((msg) => {
 	}
 });
 
-function removeAll() {}
+function removeAll() {
+	console.log("sending remove message");
+	chrome.tabs.sendMessage(currentTab.id, { action: "removeCheckoutPlus", target: "content-script.js" });
+}
