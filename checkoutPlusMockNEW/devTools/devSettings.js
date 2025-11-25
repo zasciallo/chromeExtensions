@@ -23,7 +23,7 @@ chrome.declarativeNetRequest.getDynamicRules((rules) => {
 //TODO:setup savedByObj script
 
 // listeners
-const IDs = ["SFW", "HLW", "OldSFW", "competitor", "CSP"];
+const IDs = ["SFW", "SFWLatest", "HLW", "OldSFW", "competitor", "CSP"];
 setupScriptBlockersByID(IDs);
 
 //func
@@ -34,31 +34,34 @@ function blockScripts(target) {
 			blockRules.id = 1;
 			blockRules.pattern = "cdn.shopify.com/extensions/*/savedby-*/assets/v*.js";
 			break;
-
-		case "HLW":
+		case "SFWLatest":
 			blockRules.id = 2;
+			blockRules.pattern = "cdn.shopify.com/extensions/*/savedby-*/assets/latest.js";
+			break;
+		case "HLW":
+			blockRules.id = 3;
 			blockRules.pattern = "headless-widget.savedby.io/*";
 			break;
 
 		case "OldSFW":
-			blockRules.id = 3;
+			blockRules.id = 4;
 			blockRules.pattern = "api.savedby.io/widget/sfw*";
 			break;
 
 		case "competitor":
 			//TODO: figure out onward
 			const rules = [
-				new BlockRule(5, "t3micro.com/products/*"),
-				new BlockRule(6, "api.shipinsure.io/v1/*"),
-				new BlockRule(7, "shopify-widget.route.com/*"),
-				new BlockRule(8, "cdn.orderprotection.com/cart-widget/*"),
+				new BlockRule(6, "t3micro.com/products/*"),
+				new BlockRule(7, "api.shipinsure.io/v1/*"),
+				new BlockRule(8, "shopify-widget.route.com/*"),
+				new BlockRule(9, "cdn.orderprotection.com/cart-widget/*"),
 			];
 			rules.forEach((rule) => {
 				sendRules(rule.pattern, rule.id, target);
 			});
 			break;
 		case "CSP":
-			blockRules.id = 4;
+			blockRules.id = 5;
 			blockRules.pattern = "headless-widget.savedby.io/*";
 			break;
 
