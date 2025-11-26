@@ -11,7 +11,8 @@ chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
 });
 
 function injectSBScript(activeTab) {
-	if (!activeTab.id || !activeTab) return;
+	if (!activeTab.id || !activeTab || activeTab.url.startsWith("chrome://")) return;
+	//console.log("Injecting SavedBy Script into tab:", activeTab);
 	chrome.scripting.executeScript(
 		{
 			target: { tabId: activeTab.id },

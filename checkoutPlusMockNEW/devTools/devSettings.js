@@ -3,20 +3,25 @@ const enableDev = document.getElementById("toggleDev");
 const mockMode = document.getElementById("mockUpTools");
 const devMode = document.getElementById("devTools");
 
-enableDev.addEventListener("change", () => {
+enableDev.addEventListener("change", async () => {
 	mockMode.classList.toggle("inactive", enableDev.checked);
 	devMode.classList.toggle("inactive", !enableDev.checked);
+	await storage("enableDev", enableDev.checked);
 });
 
-//true by default FOR NOW, make this a user pref saved in local storage
-enableDev.checked = true;
+//user pref saved in local storage
+(async () => {
+  enableDev.checked = await storage("enableDev");
+})().then(() => {//let the button know we loaded storage
 enableDev.dispatchEvent(new Event("change"));
+});
+
 
 //on open, see what rules are active and update the state accordingly
 chrome.declarativeNetRequest.getDynamicRules((rules) => {
 	const toggles = [...document.getElementById("scriptingToggles").querySelectorAll("input")];
 	rules.forEach((rule) => {
-		toggles[Math.min(rule.id - 1, 4)].checked = true;
+		toggles[Math.min(rule.id - 1, toggles.length -1)].checked = true;
 	});
 });
 
@@ -48,6 +53,11 @@ function blockScripts(target) {
 			blockRules.pattern = "api.savedby.io/widget/sfw*";
 			break;
 
+		case "CSP":
+			blockRules.id = 5;
+			blockRules.pattern = "headless-widget.savedby.io/*";
+			break;
+
 		case "competitor":
 			//TODO: figure out onward
 			const rules = [
@@ -59,10 +69,6 @@ function blockScripts(target) {
 			rules.forEach((rule) => {
 				sendRules(rule.pattern, rule.id, target);
 			});
-			break;
-		case "CSP":
-			blockRules.id = 5;
-			blockRules.pattern = "headless-widget.savedby.io/*";
 			break;
 
 		default:
@@ -97,4 +103,24 @@ class BlockRule {
 		this.id = id;
 		this.pattern = `||${pattern}`;
 	}
+}
+
+//Get settings from storage
+function storage(key, value) {
+  return new Promise((resolve, reject) => {
+    try {
+      // SET
+      if (value !== undefined) {
+        chrome.storage.local.set({ [key]: value }, () => resolve(value));
+        return;
+      }
+
+      // GET
+      chrome.storage.local.get([key], (result) => {
+        resolve(result[key]);
+      });
+    } catch (err) {
+      reject(err);
+    }
+  });
 }
