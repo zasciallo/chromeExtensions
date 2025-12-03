@@ -8,19 +8,19 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 		const arg = msg.arg || null;
 
 		// If the element is inside a shadow root, grab it properly
-		let btn = document.querySelector(".sb__non-covered-link");
-		//cant find btn
-		if (!btn) {
-			console.warn("Button not found");
+		let element = document.querySelector(msg.selector);
+		//cant find element
+		if (!element) {
+			console.warn("Element not found, styles not applied", element, msg.selector);
 			return false;
 		}
 		if (arg.unit) {
-			btn.style.setProperty(arg.type, arg.value + arg.unit, "important");
+			element.style.setProperty(arg.type, arg.value + arg.unit, "important");
 		} else {
-			btn.style.setProperty(arg.type, arg.value, "important");
+			element.style.setProperty(arg.type, arg.value, "important");
 		}
 
-		sendResponse({ btn, arg });
+		sendResponse({ element, arg });
 	}
 	return;
 });

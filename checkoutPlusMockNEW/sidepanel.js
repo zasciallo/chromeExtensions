@@ -215,7 +215,7 @@ function updateStyles(e) {
 	const unit = e.target.dataset?.unit;
 	document.getElementById(type).textContent = value;
 	chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-		chrome.tabs.sendMessage(tab.id, { target: "content-styles.js", action: "updateStyle", arg: { type: type, value: value, unit: unit } }, (res) => {
+		chrome.tabs.sendMessage(tab.id, { target: "content-styles.js", action: "updateStyle", arg: { type: type, value: value, unit: unit }, selector: document.getElementById("targetElemet").value }, (res) => {
 			if (chrome.runtime.lastError) {
 				console.error("Error:", chrome.runtime.lastError.message);
 				return;
